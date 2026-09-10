@@ -5,15 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Jean da Cunha projects</title>
 <meta name="author" content="Jean da Cunha">
-<meta name="description" content="Designing (ongoing R&D) the social coordination infrastructure for an AI-native society around five core architectures.">
+<meta name="description" content="Designing the social coordination infrastructure for an AI-native society through five core architectures and a theory of relational value.">
 <meta property="og:title" content="Jean da Cunha projects">
-<meta property="og:description" content="Social coordination infrastructure for an AI-native society — five core architectures.">
+<meta property="og:description" content="Social coordination infrastructure for an AI-native society — five core architectures and a theory of relational value.">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap">
+
 <style>
   :root {
     --cream: oklch(0.985 0.012 90);
@@ -27,7 +28,11 @@
     --font-body: "Space Grotesk", sans-serif;
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
   body {
     background-color: var(--cream);
@@ -52,11 +57,13 @@
     gap: 1.5rem;
     margin-bottom: 1rem;
   }
+
   .brand {
     display: flex;
     align-items: center;
     gap: 1rem;
   }
+
   .logo {
     display: grid;
     place-items: center;
@@ -67,23 +74,27 @@
     background: var(--mint);
     transform: rotate(-6deg);
   }
+
   .logo > div {
     height: 1.75rem;
     width: 1.75rem;
     border-radius: 8px;
     background: var(--cream);
   }
+
   .brand-name {
     font-family: var(--font-display);
     font-size: 1.125rem;
     font-weight: 600;
     letter-spacing: -0.01em;
   }
+
   .brand-sub {
     font-size: 0.875rem;
     font-weight: 500;
     color: color-mix(in oklch, var(--ink) 50%, transparent);
   }
+
   .chip-arch {
     display: none;
     transform: rotate(2deg);
@@ -95,8 +106,11 @@
     font-weight: 600;
     color: var(--ink);
   }
+
   @media (min-width: 640px) {
-    .chip-arch { display: inline-block; }
+    .chip-arch {
+      display: inline-block;
+    }
   }
 
   /* Hero */
@@ -108,9 +122,13 @@
     padding: 2rem;
     box-shadow: 0 8px 0 color-mix(in oklch, oklch(0.27 0.03 280) 6%, transparent);
   }
+
   @media (min-width: 768px) {
-    .hero { padding: 3rem; }
+    .hero {
+      padding: 3rem;
+    }
   }
+
   .hero-badge {
     position: absolute;
     top: -1.25rem;
@@ -124,6 +142,7 @@
     color: white;
     box-shadow: 0 1px 2px rgba(0,0,0,0.1);
   }
+
   .hero h1 {
     font-family: var(--font-display);
     font-size: 2.25rem;
@@ -132,17 +151,22 @@
     letter-spacing: -0.02em;
     max-width: 56rem;
   }
+
   @media (min-width: 768px) {
-    .hero h1 { font-size: 3.75rem; }
+    .hero h1 {
+      font-size: 3.75rem;
+    }
   }
+
   .hero .accent {
     border-radius: 1rem;
     background: color-mix(in oklch, var(--mint) 60%, transparent);
     padding: 0 0.75rem;
   }
+
   .hero p {
     margin-top: 1.5rem;
-    max-width: 42rem;
+    max-width: 44rem;
     font-size: 1.125rem;
     line-height: 1.6;
     color: color-mix(in oklch, var(--ink) 70%, transparent);
@@ -155,8 +179,11 @@
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
+
   @media (min-width: 768px) {
-    .grid { grid-template-columns: 1fr 1fr; }
+    .grid {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 
   .card {
@@ -168,20 +195,24 @@
     padding: 1.75rem;
     transition: transform .2s, border-color .2s, background-color .2s;
   }
+
   .card:hover {
     transform: translateY(-4px);
   }
+
   .card-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 1.25rem;
   }
+
   .card-num {
     font-family: var(--font-display);
     font-size: 3rem;
     font-weight: 600;
   }
+
   .card-arrow {
     display: grid;
     place-items: center;
@@ -192,17 +223,20 @@
     font-weight: 700;
     transition: background-color .2s, color .2s;
   }
+
   .card h3 {
     font-family: var(--font-display);
     font-size: 1.5rem;
     font-weight: 600;
     letter-spacing: -0.01em;
   }
+
   .card p {
     margin-top: 0.75rem;
     line-height: 1.6;
     color: color-mix(in oklch, var(--ink) 70%, transparent);
   }
+
   .card-tag {
     margin-top: 1.25rem;
     display: inline-block;
@@ -217,12 +251,23 @@
     background: color-mix(in oklch, var(--coral) 15%, transparent);
     border-color: color-mix(in oklch, var(--ink) 10%, transparent);
   }
-  .tint-coral:hover { border-color: var(--coral); }
-  .tint-coral .card-num { color: color-mix(in oklch, var(--coral) 50%, transparent); }
-  .tint-coral .card-tag { color: var(--coral); }
+
+  .tint-coral:hover {
+    border-color: var(--coral);
+  }
+
+  .tint-coral .card-num {
+    color: color-mix(in oklch, var(--coral) 50%, transparent);
+  }
+
+  .tint-coral .card-tag {
+    color: var(--coral);
+  }
+
   .tint-coral .card-arrow {
     background: color-mix(in oklch, var(--coral) 30%, transparent);
   }
+
   .tint-coral:hover .card-arrow {
     background: var(--coral);
     color: white;
@@ -232,12 +277,23 @@
     background: color-mix(in oklch, var(--sky) 15%, transparent);
     border-color: color-mix(in oklch, var(--ink) 10%, transparent);
   }
-  .tint-sky:hover { border-color: var(--sky); }
-  .tint-sky .card-num { color: color-mix(in oklch, var(--sky) 50%, transparent); }
-  .tint-sky .card-tag { color: var(--sky); }
+
+  .tint-sky:hover {
+    border-color: var(--sky);
+  }
+
+  .tint-sky .card-num {
+    color: color-mix(in oklch, var(--sky) 50%, transparent);
+  }
+
+  .tint-sky .card-tag {
+    color: var(--sky);
+  }
+
   .tint-sky .card-arrow {
     background: color-mix(in oklch, var(--sky) 30%, transparent);
   }
+
   .tint-sky:hover .card-arrow {
     background: var(--sky);
     color: white;
@@ -247,12 +303,23 @@
     background: color-mix(in oklch, var(--mint) 15%, transparent);
     border-color: color-mix(in oklch, var(--ink) 10%, transparent);
   }
-  .tint-mint:hover { border-color: var(--mint); }
-  .tint-mint .card-num { color: color-mix(in oklch, var(--mint) 50%, transparent); }
-  .tint-mint .card-tag { color: var(--mint); }
+
+  .tint-mint:hover {
+    border-color: var(--mint);
+  }
+
+  .tint-mint .card-num {
+    color: color-mix(in oklch, var(--mint) 50%, transparent);
+  }
+
+  .tint-mint .card-tag {
+    color: var(--mint);
+  }
+
   .tint-mint .card-arrow {
     background: color-mix(in oklch, var(--mint) 30%, transparent);
   }
+
   .tint-mint:hover .card-arrow {
     background: var(--mint);
     color: white;
@@ -262,12 +329,23 @@
     background: color-mix(in oklch, var(--lemon) 20%, transparent);
     border-color: color-mix(in oklch, var(--ink) 10%, transparent);
   }
-  .tint-lemon:hover { border-color: var(--lemon); }
-  .tint-lemon .card-num { color: color-mix(in oklch, var(--lemon) 60%, transparent); }
-  .tint-lemon .card-tag { color: color-mix(in oklch, var(--ink) 60%, transparent); }
+
+  .tint-lemon:hover {
+    border-color: var(--lemon);
+  }
+
+  .tint-lemon .card-num {
+    color: color-mix(in oklch, var(--lemon) 60%, transparent);
+  }
+
+  .tint-lemon .card-tag {
+    color: color-mix(in oklch, var(--ink) 60%, transparent);
+  }
+
   .tint-lemon .card-arrow {
     background: color-mix(in oklch, var(--lemon) 40%, transparent);
   }
+
   .tint-lemon:hover .card-arrow {
     background: var(--lemon);
     color: var(--ink);
@@ -277,15 +355,213 @@
     background: color-mix(in oklch, var(--lavender) 15%, transparent);
     border-color: color-mix(in oklch, var(--ink) 10%, transparent);
   }
-  .tint-lavender:hover { border-color: var(--lavender); }
-  .tint-lavender .card-num { color: color-mix(in oklch, var(--lavender) 50%, transparent); }
-  .tint-lavender .card-tag { color: var(--lavender); }
+
+  .tint-lavender:hover {
+    border-color: var(--lavender);
+  }
+
+  .tint-lavender .card-num {
+    color: color-mix(in oklch, var(--lavender) 50%, transparent);
+  }
+
+  .tint-lavender .card-tag {
+    color: var(--lavender);
+  }
+
   .tint-lavender .card-arrow {
     background: color-mix(in oklch, var(--lavender) 30%, transparent);
   }
+
   .tint-lavender:hover .card-arrow {
     background: var(--lavender);
     color: white;
+  }
+
+  /* ARVT */
+  .tint-arvt {
+    background: color-mix(in oklch, var(--ink) 6%, var(--lavender) 12%);
+    border-color: color-mix(in oklch, var(--ink) 14%, transparent);
+  }
+
+  .tint-arvt:hover {
+    border-color: var(--ink);
+  }
+
+  .tint-arvt .card-num {
+    color: color-mix(in oklch, var(--lavender) 55%, var(--ink) 20%);
+  }
+
+  .tint-arvt .card-tag {
+    color: var(--ink);
+  }
+
+  .tint-arvt .card-arrow {
+    background: color-mix(in oklch, var(--lavender) 30%, transparent);
+  }
+
+  .tint-arvt:hover .card-arrow {
+    background: var(--ink);
+    color: var(--cream);
+  }
+
+  /* Philosophy */
+  .manifesto {
+    margin-top: 2.5rem;
+    padding: 3rem 2rem;
+    border-radius: 32px;
+    border: 2px solid color-mix(in oklch, var(--ink) 10%, transparent);
+    background: color-mix(in oklch, white 55%, transparent);
+  }
+
+  @media (min-width: 768px) {
+    .manifesto {
+      padding: 4rem;
+    }
+  }
+
+  .manifesto-label {
+    display: inline-block;
+    margin-bottom: 1rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: color-mix(in oklch, var(--ink) 50%, transparent);
+  }
+
+  .manifesto h2 {
+    max-width: 55rem;
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+  }
+
+  @media (min-width: 768px) {
+    .manifesto h2 {
+      font-size: 4rem;
+    }
+  }
+
+  .manifesto h2 span {
+    background: var(--mint);
+    border-radius: 1rem;
+    padding: 0 0.45rem;
+  }
+
+  .manifesto-lead {
+    max-width: 48rem;
+    margin-top: 1.25rem;
+    font-size: 1.125rem;
+    line-height: 1.65;
+    color: color-mix(in oklch, var(--ink) 70%, transparent);
+  }
+
+  .manifesto-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .manifesto-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .manifesto-block {
+    padding: 1.5rem;
+    border-radius: 22px;
+    background: color-mix(in oklch, var(--cream) 75%, transparent);
+    border: 1px solid color-mix(in oklch, var(--ink) 8%, transparent);
+  }
+
+  .manifesto-block strong {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+  }
+
+  .manifesto-block p {
+    margin-top: 0.65rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: color-mix(in oklch, var(--ink) 68%, transparent);
+  }
+
+  .manifesto-quote {
+    margin-top: 2.5rem;
+    padding: 2rem;
+    border-radius: 24px;
+    background: var(--ink);
+    color: var(--cream);
+  }
+
+  .manifesto-quote > span {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--mint);
+  }
+
+  .manifesto-quote blockquote {
+    max-width: 52rem;
+    margin-top: 0.75rem;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    line-height: 1.3;
+  }
+
+  .manifesto-quote p {
+    max-width: 48rem;
+    margin-top: 1rem;
+    line-height: 1.6;
+    color: color-mix(in oklch, var(--cream) 68%, transparent);
+  }
+
+  .architecture-map {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 2px solid color-mix(in oklch, var(--ink) 10%, transparent);
+  }
+
+  .map-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .map-flow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .map-flow span:not(:nth-child(even)) {
+    padding: 0.5rem 0.75rem;
+    border-radius: 999px;
+    background: color-mix(in oklch, var(--lemon) 45%, transparent);
+  }
+
+  .manifesto-end {
+    margin-top: 2.5rem;
+    text-align: center;
+  }
+
+  .manifesto-end p {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 600;
+  }
+
+  .manifesto-end span {
+    display: block;
+    margin-top: 0.4rem;
+    font-size: 0.85rem;
+    color: color-mix(in oklch, var(--ink) 55%, transparent);
   }
 
   /* Footer */
@@ -301,19 +577,23 @@
     color: var(--cream);
     padding: 1.5rem 2rem;
   }
+
   .footer p {
     font-family: var(--font-display);
     font-size: 1.125rem;
     font-weight: 600;
   }
+
   .footer span {
     font-size: 0.875rem;
     color: color-mix(in oklch, var(--cream) 60%, transparent);
   }
 </style>
 </head>
+
 <body>
   <div class="wrap">
+
     <!-- Header -->
     <div class="header">
       <div class="brand">
@@ -323,74 +603,266 @@
           <p class="brand-sub">projects · index</p>
         </div>
       </div>
-      <span class="chip-arch">5 core architectures</span>
+
+      <span class="chip-arch">5 architectures · 1 theory</span>
     </div>
 
     <!-- Hero -->
     <div class="hero">
       <div class="hero-badge">R&D · in motion</div>
-      <h1>Designing the social coordination infrastructure for an <span class="accent">AI-native</span> society.</h1>
-      <p>Designing (ongoing R&D) the social coordination infrastructure for an AI-native society around five core architectures.</p>
+
+      <h1>
+        Designing the social coordination infrastructure for an
+        <span class="accent">AI-native</span> society.
+      </h1>
+
+      <p>
+        Designing (ongoing R&D) the social coordination infrastructure for an
+        AI-native society through five core architectures and a theory of
+        relational value.
+      </p>
     </div>
 
     <!-- Project grid -->
     <div class="grid">
-      <a class="card tint-coral" href="https://theodoreyong9.github.io/AIWA_chain/" target="_blank" rel="noopener noreferrer">
+
+      <!-- 01 -->
+      <a
+        class="card tint-coral"
+        href="https://theodoreyong9.github.io/AIWA_chain/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <div class="card-row">
           <span class="card-num">01</span>
           <span class="card-arrow">→</span>
         </div>
+
         <h3>Partitioned Global Coordination</h3>
-        <p>Local progression and transaction validation system eliminating synchronization-dependent attack surface, with a value accrual as necessary interaction channel.</p>
+
+        <p>
+          Local progression and transaction validation system eliminating
+          synchronization-dependent attack surface, with a value accrual as
+          necessary interaction channel.
+        </p>
+
         <span class="card-tag">aiwa_chain</span>
       </a>
 
-      <a class="card tint-sky" href="https://yourmine-dapp.web.app/" target="_blank" rel="noopener noreferrer">
+      <!-- 02 -->
+      <a
+        class="card tint-sky"
+        href="https://yourmine-dapp.web.app/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <div class="card-row">
           <span class="card-num">02</span>
           <span class="card-arrow">→</span>
         </div>
+
         <h3>Community-Driven Permissionless Execution</h3>
-        <p>An execution environment enabling humans, communities, and autonomous agents to act without centralized permission.</p>
+
+        <p>
+          An execution environment enabling humans, communities, and autonomous
+          agents to act without centralized permission.
+        </p>
+
         <span class="card-tag">yourmine</span>
       </a>
 
-      <a class="card tint-mint" href="https://theodoreyong9.github.io/SGD" target="_blank" rel="noopener noreferrer">
+      <!-- 03 -->
+      <a
+        class="card tint-mint"
+        href="https://theodoreyong9.github.io/SGD"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <div class="card-row">
           <span class="card-num">03</span>
           <span class="card-arrow">→</span>
         </div>
+
         <h3>Autonomous Collective Representation</h3>
-        <p>An AI-mediated semantic-graph-based architecture enabling individuals to express, structure, and relate collective perspectives, preferences, and intentions.</p>
+
+        <p>
+          An AI-mediated semantic-graph-based architecture enabling individuals
+          to express, structure, and relate collective perspectives,
+          preferences, and intentions.
+        </p>
+
         <span class="card-tag">sgd</span>
       </a>
 
-      <a class="card tint-lemon" href="https://theodoreyong9.github.io/Jobber/" target="_blank" rel="noopener noreferrer">
+      <!-- 04 -->
+      <a
+        class="card tint-lemon"
+        href="https://theodoreyong9.github.io/Jobber/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <div class="card-row">
           <span class="card-num">04</span>
           <span class="card-arrow">→</span>
         </div>
+
         <h3>Personal Interoperable Agency</h3>
-        <p>A peer-to-peer AI-mediated coordination layer for human opportunities.</p>
+
+        <p>
+          A peer-to-peer AI-mediated coordination layer for human
+          opportunities.
+        </p>
+
         <span class="card-tag">jobber</span>
       </a>
 
-      <a class="card tint-lavender" href="https://theodoreyong9.github.io/Smartank/" target="_blank" rel="noopener noreferrer">
+      <!-- 05 -->
+      <a
+        class="card tint-lavender"
+        href="https://theodoreyong9.github.io/Smartank/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <div class="card-row">
           <span class="card-num">05</span>
           <span class="card-arrow">→</span>
         </div>
+
         <h3>AI-native Capability Discovery</h3>
-        <p>A local-first AI-mediated discovery and coordination layer enabling humans and autonomous agents to navigate the rapidly expanding AI ecosystem.</p>
+
+        <p>
+          A local-first AI-mediated discovery and coordination layer enabling
+          humans and autonomous agents to navigate the rapidly expanding AI
+          ecosystem.
+        </p>
+
         <span class="card-tag">smartank</span>
       </a>
+
+      <!-- 06 -->
+      <a
+        class="card tint-arvt"
+        href="https://theodoreyong9.github.io/ARVT/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div class="card-row">
+          <span class="card-num">06</span>
+          <span class="card-arrow">→</span>
+        </div>
+
+        <h3>Autonomous Relational Value Theory</h3>
+
+        <p>
+          A living theoretical and experimental framework exploring value as
+          the residue of a relation whose cost is real and whose continuity
+          remains sustainable.
+        </p>
+
+        <span class="card-tag">arvt</span>
+      </a>
+
     </div>
+
+    <!-- Philosophy -->
+    <section class="manifesto">
+
+      <span class="manifesto-label">THE ARCHITECTURE</span>
+
+      <h2>
+        From applications to <span>primitives.</span>
+      </h2>
+
+      <p class="manifesto-lead">
+        These projects are not designed as a single platform. They are
+        experiments in building social coordination infrastructure that can
+        survive divergence.
+      </p>
+
+      <div class="manifesto-grid">
+
+        <div class="manifesto-block">
+          <strong>One ecosystem.</strong>
+          <p>
+            Different implementations, forks, communities, agents and
+            interfaces can participate in the same coordination space without
+            becoming the same product.
+          </p>
+        </div>
+
+        <div class="manifesto-block">
+          <strong>Forks are a feature.</strong>
+          <p>
+            An open system does not need to authorize every implementation.
+            If the relevant interfaces and invariants remain compatible,
+            independent implementations can coexist and evolve.
+          </p>
+        </div>
+
+        <div class="manifesto-block">
+          <strong>Coordination without a center.</strong>
+          <p>
+            The objective is not to make everyone use the same application.
+            It is to discover the smallest useful primitives that allow
+            independent actors to coordinate.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- ARVT -->
+      <div class="manifesto-quote">
+        <span>ARVT</span>
+
+        <blockquote>
+          Value can be understood as the residue of a relation whose cost is
+          real and whose continuity remains sustainable.
+        </blockquote>
+
+        <p>
+          ARVT is an attempt to articulate the relational value logic
+          underlying these experiments — not as another application layer,
+          but as a reflexive theory of what these systems are trying to build.
+        </p>
+      </div>
+
+      <!-- Architecture map -->
+      <div class="architecture-map">
+
+        <div class="map-title">Five architectures</div>
+
+        <div class="map-flow">
+          <span>Personal agency</span>
+          <span>→</span>
+
+          <span>Collective representation</span>
+          <span>→</span>
+
+          <span>Permissionless execution</span>
+          <span>→</span>
+
+          <span>Value progression</span>
+          <span>→</span>
+
+          <span>Capability discovery</span>
+        </div>
+
+      </div>
+
+      <!-- Ending -->
+      <div class="manifesto-end">
+        <p>Read it. Fork it. Modify it. Deploy it.</p>
+        <span>Let the ecosystem diverge.</span>
+      </div>
+
+    </section>
 
     <!-- Footer -->
     <div class="footer">
       <p>Coordination, without a center.</p>
       <span>© 2025 Jean da Cunha</span>
     </div>
+
   </div>
 </body>
 </html>
