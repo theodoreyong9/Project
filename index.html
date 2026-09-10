@@ -3,20 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Experiments toward an AI-native social coordination infrastructure." />
-  <title>Project — AI-native social coordination infrastructure</title>
+  <meta
+    name="description"
+    content="Experiments toward an AI-native social coordination infrastructure."
+  />
+  <title>AI-native Social Coordination — JdC</title>
 
   <style>
     :root {
-      --bg: #f5f5f2;
+      --bg: #f7f7f4;
       --surface: #ffffff;
-      --surface-soft: #eeeeeb;
+      --surface-soft: #f0f0eb;
       --text: #171717;
-      --muted: #686868;
-      --line: #d8d8d3;
-      --accent: #111111;
-      --radius: 18px;
+      --muted: #666660;
+      --line: #dcdcd5;
+      --accent: #171717;
       --max: 1180px;
+      --radius: 18px;
     }
 
     * {
@@ -31,8 +34,15 @@
       margin: 0;
       background: var(--bg);
       color: var(--text);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.55;
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      line-height: 1.6;
     }
 
     a {
@@ -40,287 +50,237 @@
       text-decoration: none;
     }
 
+    a:hover {
+      text-decoration: underline;
+    }
+
     .container {
       width: min(calc(100% - 40px), var(--max));
-      margin: auto;
+      margin: 0 auto;
     }
 
     header {
+      padding: 28px 0;
       border-bottom: 1px solid var(--line);
-      background: rgba(245, 245, 242, 0.94);
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      backdrop-filter: blur(14px);
     }
 
     nav {
-      min-height: 68px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       gap: 24px;
     }
 
     .brand {
-      font-weight: 800;
-      letter-spacing: -0.03em;
+      font-weight: 700;
+      letter-spacing: -0.02em;
     }
 
     .nav-links {
       display: flex;
       gap: 22px;
       color: var(--muted);
-      font-size: 14px;
-    }
-
-    .nav-links a:hover {
-      color: var(--text);
+      font-size: 0.92rem;
     }
 
     .hero {
-      padding: 110px 0 90px;
-      border-bottom: 1px solid var(--line);
+      padding: 110px 0 100px;
+      max-width: 920px;
     }
 
     .eyebrow {
-      display: inline-flex;
-      padding: 7px 11px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
+      margin-bottom: 22px;
       color: var(--muted);
-      font-size: 12px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 28px;
-      background: var(--surface);
     }
 
     h1 {
-      max-width: 950px;
       margin: 0;
-      font-size: clamp(48px, 8vw, 92px);
-      line-height: 0.94;
+      max-width: 900px;
+      font-size: clamp(3rem, 7vw, 6.8rem);
+      line-height: 0.98;
       letter-spacing: -0.065em;
-      font-weight: 800;
+      font-weight: 750;
     }
 
-    .hero-intro {
+    .hero-lead {
       max-width: 760px;
-      margin-top: 34px;
-      font-size: clamp(19px, 2.2vw, 25px);
-      color: #444;
-      letter-spacing: -0.02em;
-    }
-
-    .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-      margin-top: 35px;
-    }
-
-    .chip {
-      border: 1px solid var(--line);
-      background: var(--surface);
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 13px;
+      margin: 34px 0 0;
+      font-size: clamp(1.15rem, 2vw, 1.45rem);
       color: var(--muted);
+    }
+
+    .hero-question {
+      max-width: 760px;
+      margin-top: 42px;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+      font-size: 1.05rem;
     }
 
     section {
       padding: 90px 0;
-      border-bottom: 1px solid var(--line);
+      border-top: 1px solid var(--line);
     }
 
-    .section-head {
+    .section-heading {
       display: grid;
-      grid-template-columns: 0.7fr 1.3fr;
+      grid-template-columns: 0.8fr 1.2fr;
       gap: 60px;
       margin-bottom: 48px;
     }
 
     .section-number {
       color: var(--muted);
-      font-size: 13px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
     }
 
     h2 {
       margin: 0;
-      font-size: clamp(32px, 5vw, 58px);
-      line-height: 1;
-      letter-spacing: -0.055em;
+      font-size: clamp(2rem, 4vw, 3.6rem);
+      line-height: 1.05;
+      letter-spacing: -0.045em;
     }
 
-    .lead {
-      color: #4c4c4c;
-      font-size: 18px;
-      max-width: 760px;
+    .section-intro {
+      margin: 16px 0 0;
+      color: var(--muted);
+      max-width: 720px;
     }
 
     .architecture-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
+      gap: 18px;
     }
 
-    .architecture {
+    .card {
       background: var(--surface);
       border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 28px;
-      min-height: 270px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .architecture.arvt {
-      grid-column: 1 / -1;
-      background: #e9e9e5;
-    }
-
-    .architecture-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      align-items: flex-start;
-    }
-
-    .architecture-index {
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .architecture h3 {
-      margin: 18px 0 8px;
-      font-size: 29px;
-      letter-spacing: -0.04em;
-    }
-
-    .primitive {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .architecture p {
-      color: #4b4b4b;
-      max-width: 600px;
-    }
-
-    .arrow {
-      color: var(--muted);
-      font-size: 20px;
-    }
-
-    .map {
-      border: 1px solid var(--line);
-      background: var(--surface);
       border-radius: var(--radius);
       padding: 30px;
     }
 
-    .map-root {
-      text-align: center;
-      font-size: 20px;
-      font-weight: 750;
-      padding: 20px;
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 25px;
+    .card.full {
+      grid-column: 1 / -1;
     }
 
-    .map-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
-    .map-node {
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 18px;
-      background: var(--surface-soft);
-    }
-
-    .map-node strong {
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    .map-node span {
-      font-size: 13px;
+    .card-index {
       color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
     }
 
-    .map-node.reflexive {
-      background: var(--accent);
-      color: white;
-      border-color: var(--accent);
+    .card h3 {
+      margin: 12px 0 8px;
+      font-size: 1.8rem;
+      letter-spacing: -0.035em;
     }
 
-    .map-node.reflexive span {
-      color: #ccc;
+    .primitive {
+      display: inline-block;
+      margin-bottom: 22px;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .card p {
+      color: var(--muted);
+      margin: 0 0 18px;
     }
 
     .architecture-detail {
-      display: grid;
-      grid-template-columns: 0.7fr 1.3fr;
-      gap: 60px;
-      padding: 65px 0;
+      padding-top: 18px;
       border-top: 1px solid var(--line);
+      margin-top: 22px;
     }
 
-    .architecture-detail:first-child {
-      border-top: 0;
+    .architecture-detail strong {
+      color: var(--text);
     }
 
-    .detail-label {
-      font-size: 12px;
+    .architecture-detail ul {
+      margin: 10px 0 0;
+      padding-left: 20px;
       color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
     }
 
-    .detail-title {
-      font-size: 34px;
-      line-height: 1;
-      letter-spacing: -0.045em;
-      margin: 10px 0 15px;
+    .architecture-detail li + li {
+      margin-top: 7px;
     }
 
-    .detail-body {
-      color: #444;
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 25px;
+      font-size: 0.88rem;
+    }
+
+    .link {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 13px;
+      background: var(--surface);
+    }
+
+    .map {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+
+    .map-item {
+      min-height: 180px;
+      padding: 26px;
+      background: var(--surface);
+    }
+
+    .map-item h3 {
+      margin: 0 0 8px;
+      font-size: 1.15rem;
+    }
+
+    .map-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
     }
 
     .flow {
-      margin-top: 25px;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       gap: 8px;
+      margin-top: 22px;
+      font-size: 0.88rem;
     }
 
     .flow span {
-      border: 1px solid var(--line);
-      background: var(--surface);
-      border-radius: 9px;
-      padding: 8px 10px;
-      font-size: 12px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      padding: 7px 11px;
+      background: var(--surface-soft);
+      border-radius: 8px;
     }
 
-    .flow i {
+    .flow .arrow {
+      background: transparent;
+      padding: 0 2px;
       color: var(--muted);
-      font-style: normal;
     }
 
     .principles {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
+      gap: 18px;
     }
 
     .principle {
@@ -331,127 +291,142 @@
     }
 
     .principle h3 {
-      margin-top: 0;
-      letter-spacing: -0.03em;
+      margin: 0 0 10px;
+      font-size: 1.2rem;
     }
 
     .principle p {
+      margin: 0;
       color: var(--muted);
     }
 
-    .contrast {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
+    .dialogue {
+      max-width: 820px;
+      padding: 38px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
     }
 
-    .contrast-box {
+    .dialogue-label {
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .dialogue h3 {
+      margin: 0 0 18px;
+      font-size: 2rem;
+      letter-spacing: -0.035em;
+    }
+
+    .dialogue p {
+      color: var(--muted);
+      margin: 0 0 14px;
+    }
+
+    .reflexivity {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .reflex-card {
       border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 30px;
       background: var(--surface);
     }
 
-    .contrast-box.old {
-      background: var(--surface-soft);
-    }
-
-    .contrast-box h3 {
+    .reflex-card h3 {
       margin-top: 0;
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: -0.025em;
+    }
+
+    .reflex-card p {
       color: var(--muted);
-    }
-
-    .contrast-box p {
-      font-size: 25px;
-      line-height: 1.15;
-      letter-spacing: -0.035em;
-    }
-
-    .callout {
-      margin-top: 35px;
-      padding: 30px;
-      border-left: 3px solid var(--accent);
-      background: var(--surface);
-      border-radius: 0 var(--radius) var(--radius) 0;
-    }
-
-    .callout strong {
-      display: block;
-      margin-bottom: 8px;
     }
 
     .status {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 30px;
-      align-items: start;
+      gap: 18px;
     }
 
-    .status-note {
-      font-size: 22px;
-      letter-spacing: -0.03em;
+    .status-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 30px;
+      background: var(--surface);
     }
 
-    ul {
-      padding-left: 20px;
+    .status-card h3 {
+      margin-top: 0;
     }
 
-    li {
-      margin-bottom: 8px;
-      color: #4b4b4b;
+    .status-card p {
+      color: var(--muted);
     }
 
     footer {
-      padding: 55px 0;
-      color: var(--muted);
-      font-size: 13px;
+      padding: 60px 0 80px;
+      border-top: 1px solid var(--line);
     }
 
-    footer .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .footer-grid p {
+      color: var(--muted);
+    }
+
+    .repo-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .repo-list a {
+      color: var(--muted);
     }
 
     @media (max-width: 800px) {
-      .nav-links {
-        display: none;
+      .container {
+        width: min(calc(100% - 28px), var(--max));
       }
 
       .hero {
-        padding: 75px 0;
-      }
-
-      .section-head,
-      .architecture-detail,
-      .status {
-        grid-template-columns: 1fr;
-        gap: 25px;
-      }
-
-      .architecture-grid,
-      .principles,
-      .contrast {
-        grid-template-columns: 1fr;
-      }
-
-      .architecture.arvt {
-        grid-column: auto;
-      }
-
-      .map-grid {
-        grid-template-columns: 1fr;
+        padding: 75px 0 70px;
       }
 
       section {
         padding: 65px 0;
       }
 
-      footer .footer-inner {
-        flex-direction: column;
+      .section-heading,
+      .architecture-grid,
+      .principles,
+      .reflexivity,
+      .status,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .map {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .card.full {
+        grid-column: auto;
       }
     }
   </style>
@@ -459,935 +434,1179 @@
 
 <body>
 
-<header>
-  <div class="container">
-    <nav>
-      <a href="#" class="brand">Project / JdC</a>
-
-      <div class="nav-links">
-        <a href="#architectures">Architectures</a>
-        <a href="#architecture">Technical architecture</a>
-        <a href="#principles">Principles</a>
-        <a href="#status">Status</a>
-      </div>
-    </nav>
-  </div>
-</header>
-
-<main>
-
-  <!-- HERO -->
-  <section class="hero">
+  <header>
     <div class="container">
+      <nav>
+        <a class="brand" href="#">JdC</a>
 
-      <div class="eyebrow">
-        Experiments toward an AI-native society
-      </div>
-
-      <h1>
-        Social coordination without a single center.
-      </h1>
-
-      <p class="hero-intro">
-        What would social coordination look like if humans and autonomous
-        agents could create, represent, discover, execute and exchange value
-        without requiring a single application or a single central authority?
-      </p>
-
-      <div class="hero-meta">
-        <span class="chip">6 architectures</span>
-        <span class="chip">6 coordination primitives</span>
-        <span class="chip">1 reflexive architecture</span>
-        <span class="chip">Open source experiments</span>
-      </div>
-
+        <div class="nav-links">
+          <a href="#architectures">Architectures</a>
+          <a href="#map">Map</a>
+          <a href="#principles">Principles</a>
+          <a href="#status">Status</a>
+        </div>
+      </nav>
     </div>
-  </section>
+  </header>
 
+  <main>
 
-  <!-- SIX ARCHITECTURES -->
-  <section id="architectures">
     <div class="container">
-
-      <div class="section-head">
-        <div>
-          <div class="section-number">01 / ARCHITECTURES</div>
-        </div>
-
-        <div>
-          <h2>
-            Six independent architectures for one larger question.
-          </h2>
-
-          <p class="lead">
-            These projects are deliberately separate. They investigate
-            different primitives of an AI-native coordination infrastructure
-            rather than forming a single monolithic application.
-          </p>
-        </div>
-      </div>
-
-      <div class="architecture-grid">
-
-        <article class="architecture">
-          <div>
-            <div class="architecture-top">
-              <div class="architecture-index">01</div>
-              <div class="arrow">↗</div>
-            </div>
-
-            <h3>Jobber</h3>
-            <div class="primitive">Primitive — personal agency</div>
-
-            <p>
-              A local-first, peer-to-peer coordination layer for human
-              opportunities. Identity, data, matching and AI assistance
-              remain close to the individual rather than being mediated by
-              a central platform.
-            </p>
-          </div>
-
-          <a href="https://github.com/theodoreyong9/Jobber">
-            Explore repository →
-          </a>
-        </article>
-
-
-        <article class="architecture">
-          <div>
-            <div class="architecture-top">
-              <div class="architecture-index">02</div>
-              <div class="arrow">↗</div>
-            </div>
-
-            <h3>SGD</h3>
-            <div class="primitive">Primitive — collective representation</div>
-
-            <p>
-              Semantic Graph Democracy turns individual contributions into
-              structured collective representation. Submission is not reduced
-              to a binary vote: semantic extraction, graph navigation and
-              participation are part of the same operation.
-            </p>
-          </div>
-
-          <a href="https://github.com/theodoreyong9/SGD">
-            Explore repository →
-          </a>
-        </article>
-
-
-        <article class="architecture">
-          <div>
-            <div class="architecture-top">
-              <div class="architecture-index">03</div>
-              <div class="arrow">↗</div>
-            </div>
-
-            <h3>YourMine</h3>
-            <div class="primitive">Primitive — permissionless execution</div>
-
-            <p>
-              A permissionless WebOS where applications, interfaces and
-              communities can be created, forked, modified and redistributed.
-              The important object is not a canonical application, but the
-              runtime in which independent implementations can coexist.
-            </p>
-          </div>
-
-          <a href="https://github.com/theodoreyong9/YourMinedApp">
-            Explore repository →
-          </a>
-        </article>
-
-
-        <article class="architecture">
-          <div>
-            <div class="architecture-top">
-              <div class="architecture-index">04</div>
-              <div class="arrow">↗</div>
-            </div>
-
-            <h3>AIWA Chain</h3>
-            <div class="primitive">Primitive — locally progressing value</div>
-
-            <p>
-              A protocol experiment for partitioned global coordination.
-              Domains progress through local sequential computation and can
-              later exchange verifiable value without depending on a shared
-              synchronization clock.
-            </p>
-          </div>
-
-          <a href="https://github.com/theodoreyong9/AIWA_chain">
-            Explore repository →
-          </a>
-        </article>
-
-
-        <article class="architecture">
-          <div>
-            <div class="architecture-top">
-              <div class="architecture-index">05</div>
-              <div class="arrow">↗</div>
-            </div>
-
-            <h3>Smartank</h3>
-            <div class="primitive">Primitive — capability discovery</div>
-
-            <p>
-              A local-first AI-mediated discovery layer for the expanding AI
-              ecosystem. Natural-language intent becomes the interface for
-              navigating real model and capability catalogs.
-            </p>
-          </div>
-
-          <a href="https://github.com/theodoreyong9/Smartank">
-            Explore repository →
-          </a>
-        </article>
-
-
-        <!-- ARVT IS A PEER ARCHITECTURE -->
-        <article class="architecture arvt">
-          <div>
-            <div class="architecture-top">
-              <div class="architecture-index">06 / REFLEXIVE</div>
-              <div class="arrow">↻</div>
-            </div>
-
-            <h3>ARVT</h3>
-            <div class="primitive">
-              Primitive — relational value / reflexive theory production
-            </div>
-
-            <p>
-              ARVT is a sixth architecture in its own right. It is not merely
-              a theory sitting above the other projects. It implements its
-              own technical process for producing a living corpus through
-              sequential visitor contributions, semantic graph evolution and
-              LLM-mediated composition.
-            </p>
-
-            <p>
-              Its distinctive property is reflexivity: the architecture
-              attempts to enact the relational theory of value that it
-              expresses. The theory is therefore not external to the system;
-              the system becomes part of the theory's production.
-            </p>
-          </div>
-
-          <a href="https://github.com/theodoreyong9/ARVT">
-            Explore repository →
-          </a>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- MAP -->
-  <section>
-    <div class="container">
-
-      <div class="section-head">
-        <div>
-          <div class="section-number">02 / SYSTEM MAP</div>
-        </div>
-
-        <div>
-          <h2>
-            Peer architectures, not layers of a single product.
-          </h2>
-
-          <p class="lead">
-            The six projects investigate different coordination primitives.
-            ARVT is shown alongside them because it has its own architecture,
-            while its reflexive property gives it a different role in the
-            overall ecosystem.
-          </p>
-        </div>
-      </div>
-
-      <div class="map">
-
-        <div class="map-root">
-          AI-native social coordination
-        </div>
-
-        <div class="map-grid">
-
-          <div class="map-node">
-            <strong>Jobber</strong>
-            <span>Agency</span>
-          </div>
-
-          <div class="map-node">
-            <strong>SGD</strong>
-            <span>Representation</span>
-          </div>
-
-          <div class="map-node">
-            <strong>YourMine</strong>
-            <span>Execution</span>
-          </div>
-
-          <div class="map-node">
-            <strong>AIWA Chain</strong>
-            <span>Value progression</span>
-          </div>
-
-          <div class="map-node">
-            <strong>Smartank</strong>
-            <span>Capability discovery</span>
-          </div>
-
-          <div class="map-node reflexive">
-            <strong>ARVT ↻</strong>
-            <span>Relational value / reflexive theory-production</span>
-          </div>
-
-        </div>
-
-      </div>
-
-      <div class="callout">
-        <strong>Important distinction</strong>
-
-        This map does not claim that these projects already form a single
-        integrated protocol. They are independent experiments investigating
-        different parts of the same architectural question.
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- TECHNICAL ARCHITECTURE -->
-  <section id="architecture">
-    <div class="container">
-
-      <div class="section-head">
-        <div>
-          <div class="section-number">03 / TECHNICAL ARCHITECTURE</div>
-        </div>
-
-        <div>
-          <h2>
-            The primitives are implemented, not only described.
-          </h2>
-
-          <p class="lead">
-            Each repository explores a concrete mechanism for allowing
-            coordination to remain possible under divergence: different
-            implementations, identities, communities, interfaces and
-            execution environments.
-          </p>
-        </div>
-      </div>
-
-
-      <!-- JOBBER -->
-      <div class="architecture-detail">
-
-        <div>
-          <div class="detail-label">Architecture 01</div>
-          <div class="detail-title">Jobber</div>
-          <div class="primitive">Personal Interoperable Agency</div>
-        </div>
-
-        <div class="detail-body">
-          <p>
-            Jobber is deliberately local-first and backend-free. Identity is
-            generated in the browser, data is persisted locally, peers
-            communicate directly and matching happens locally.
-          </p>
-
-          <div class="flow">
-            <span>Browser identity</span>
-            <i>→</i>
-            <span>IndexedDB</span>
-            <i>→</i>
-            <span>P2P / WebRTC</span>
-            <i>→</i>
-            <span>Local matching</span>
-            <i>→</i>
-            <span>AI assistance</span>
-          </div>
-
-          <p>
-            WebLLM can provide local AI assistance when available, while
-            research artifacts preserve provenance and can be exported.
-          </p>
-        </div>
-
-      </div>
-
-
-      <!-- SGD -->
-      <div class="architecture-detail">
-
-        <div>
-          <div class="detail-label">Architecture 02</div>
-          <div class="detail-title">SGD</div>
-          <div class="primitive">Semantic Graph Democracy</div>
-        </div>
-
-        <div class="detail-body">
-          <p>
-            SGD treats a contribution as a semantic operation rather than a
-            yes/no vote. A visitor submits text, the system identifies its
-            semantic relation to the collective graph and integrates valid
-            contributions into a canonical structure.
-          </p>
-
-          <div class="flow">
-            <span>Submission</span>
-            <i>→</i>
-            <span>Semantic parsing</span>
-            <i>→</i>
-            <span>Graph navigation</span>
-            <i>→</i>
-            <span>Validation</span>
-            <i>→</i>
-            <span>Graph update</span>
-          </div>
-
-          <p>
-            The browser can perform local semantic parsing with WebLLM.
-            GitHub Actions performs the server-side extraction and canonical
-            graph update, keeping the public repository as the coordination
-            substrate.
-          </p>
-        </div>
-
-      </div>
-
-
-      <!-- YOURMINE -->
-      <div class="architecture-detail">
-
-        <div>
-          <div class="detail-label">Architecture 03</div>
-          <div class="detail-title">YourMine</div>
-          <div class="primitive">Permissionless Execution</div>
-        </div>
-
-        <div class="detail-body">
-          <p>
-            YourMine separates the runtime from the application. Spheres are
-            applications; themes can replace the interface; the registry is
-            maintained through the user's fork.
-          </p>
-
-          <div class="flow">
-            <span>Fork</span>
-            <i>→</i>
-            <span>Modify</span>
-            <i>→</i>
-            <span>Publish</span>
-            <i>→</i>
-            <span>Score</span>
-            <i>→</i>
-            <span>Redistribute</span>
-          </div>
-
-          <p>
-            There is no requirement for a central editorial authority to
-            decide which implementation is legitimate. The ecosystem can
-            recognize compatible implementations through participation and
-            shared interfaces.
-          </p>
-        </div>
-
-      </div>
-
-
-      <!-- AIWA -->
-      <div class="architecture-detail">
-
-        <div>
-          <div class="detail-label">Architecture 04</div>
-          <div class="detail-title">AIWA Chain</div>
-          <div class="primitive">Partitioned Global Coordination</div>
-        </div>
-
-        <div class="detail-body">
-          <p>
-            AIWA experiments with value domains that progress independently.
-            Progression is tied to real sequential computation rather than
-            a globally shared clock.
-          </p>
-
-          <div class="flow">
-            <span>Identity</span>
-            <i>→</i>
-            <span>Ignition</span>
-            <i>→</i>
-            <span>Local sequential progression</span>
-            <i>→</i>
-            <span>Accrual</span>
-            <i>→</i>
-            <span>Verifiable exchange</span>
-          </div>
-
-          <p>
-            The same identity that activates the system can accrue native
-            AIWA locally. Domains can therefore progress at their own pace;
-            reconciliation provides an informational signal rather than
-            forcing all domains onto a shared progression clock.
-          </p>
-        </div>
-
-      </div>
-
-
-      <!-- SMARTANK -->
-      <div class="architecture-detail">
-
-        <div>
-          <div class="detail-label">Architecture 05</div>
-          <div class="detail-title">Smartank</div>
-          <div class="primitive">AI-native Capability Discovery</div>
-        </div>
-
-        <div class="detail-body">
-          <p>
-            Smartank treats natural language as the discovery interface for
-            capabilities. The user describes what they want to build; local
-            AI interprets the intent and searches an actual external catalog.
-          </p>
-
-          <div class="flow">
-            <span>Intent</span>
-            <i>→</i>
-            <span>Local AI interpretation</span>
-            <i>→</i>
-            <span>Catalog search</span>
-            <i>→</i>
-            <span>Ranking</span>
-            <i>→</i>
-            <span>Evidence</span>
-          </div>
-
-          <p>
-            The current implementation focuses deliberately on a narrow
-            problem: navigating the Hugging Face model ecosystem through
-            local AI rather than pretending to already have a complete
-            universal capability graph.
-          </p>
-        </div>
-
-      </div>
-
-
-      <!-- ARVT -->
-      <div class="architecture-detail">
-
-        <div>
-          <div class="detail-label">Architecture 06 / Reflexive</div>
-          <div class="detail-title">ARVT</div>
-          <div class="primitive">Autonomous Relation Value Theory</div>
-        </div>
-
-        <div class="detail-body">
-
-          <p>
-            ARVT has its own architecture. Its object is a living corpus whose
-            content and semantic graph evolve through sequential contributions
-            from visitors.
-          </p>
-
-          <p>
-            A visitor asks a question and associates it with a semantic node.
-            The proposal enters a queue. Once two proposals are available,
-            they are composed into a synthesis that extends the corpus and
-            modifies the graph.
-          </p>
-
-          <div class="flow">
-            <span>Visitor</span>
-            <i>→</i>
-            <span>Question</span>
-            <i>→</i>
-            <span>Semantic node</span>
-            <i>→</i>
-            <span>Proposal</span>
-            <i>→</i>
-            <span>Queue</span>
-            <i>→</i>
-            <span>2 proposals</span>
-            <i>→</i>
-            <span>LLM synthesis</span>
-            <i>→</i>
-            <span>New residue</span>
-            <i>→</i>
-            <span>Graph densification</span>
-          </div>
-
-          <p>
-            Technically, the architecture uses a static GitHub Pages interface,
-            Gun.js for the living P2P corpus, a semantic graph and proposal
-            queue, with GitHub Actions periodically producing snapshots.
-          </p>
-
-          <p>
-            Its distinctive mechanism is the feedback loop: graph density
-            influences where future contributions are directed. Less dense
-            nodes become preferred sites of extension. The architecture thus
-            does not merely describe relational value; it continuously
-            generates the conditions under which the theory evolves.
-          </p>
-
-          <div class="callout">
-            <strong>Why "reflexive"?</strong>
-
-            ARVT is at the same architectural level as the other five projects,
-            but it also operates on its own underlying premise. It is a theory
-            implemented as a relational process for producing the continuation
-            of that theory.
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- PROTOCOL FIRST -->
-  <section id="principles">
-    <div class="container">
-
-      <div class="section-head">
-        <div>
-          <div class="section-number">04 / DESIGN PRINCIPLES</div>
-        </div>
-
-        <div>
-          <h2>
-            Protocol-first, not product-first.
-          </h2>
-
-          <p class="lead">
-            The objective is not to make everyone use the same application.
-            The objective is to make coordination survive the existence of
-            different applications.
-          </p>
-        </div>
-      </div>
-
-
-      <div class="contrast">
-
-        <div class="contrast-box old">
-          <h3>Conventional pattern</h3>
-          <p>
-            One application → one community → one authority
-          </p>
-        </div>
-
-        <div class="contrast-box">
-          <h3>This direction</h3>
-          <p>
-            Primitives → implementations → forks → communities → shared coordination
-          </p>
-        </div>
-
-      </div>
-
-
-      <div class="principles">
-
-        <article class="principle">
-          <h3>01 — Divergence is a feature</h3>
-          <p>
-            Implementations are expected to change. A fork can alter the
-            interface, replace the AI, change the language, modify the
-            execution environment or become the basis of a new community.
-          </p>
-        </article>
-
-        <article class="principle">
-          <h3>02 — Compatibility replaces authorization</h3>
-          <p>
-            An ecosystem does not need to approve every implementation.
-            If independent implementations preserve the interfaces and
-            invariants required for coordination, they can participate in the
-            same coordination space.
-          </p>
-        </article>
-
-        <article class="principle">
-          <h3>03 — Local agency</h3>
-          <p>
-            Identity, computation, data and decision-making should move as
-            close as possible to the actors who actually perform them.
-          </p>
-        </article>
-
-        <article class="principle">
-          <h3>04 — No monolithic dependency</h3>
-          <p>
-            The system should remain meaningful when one implementation,
-            interface, AI model, community or economic context disappears
-            and another replaces it.
-          </p>
-        </article>
-
-        <article class="principle">
-          <h3>05 — Open source as an architectural mechanism</h3>
-          <p>
-            Source code enables an implementation to be read, copied,
-            modified, forked, independently operated and recombined.
-            Giving up control can make the system larger than its original
-            implementation.
-          </p>
-        </article>
-
-        <article class="principle">
-          <h3>06 — Value can be relational</h3>
-          <p>
-            ARVT provides the reflexive economic intuition running through the
-            experiments: value can be understood as the residue of a relation
-            whose cost is real and whose continuity remains sustainable.
-          </p>
-        </article>
-
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ARVT REFLEXIVITY -->
-  <section>
-    <div class="container">
-
-      <div class="section-head">
-        <div>
-          <div class="section-number">05 / REFLEXIVITY</div>
-        </div>
-
-        <div>
-          <h2>
-            ARVT is not above the architecture. It is an architecture that acts on itself.
-          </h2>
-
-          <p class="lead">
-            This distinction matters. ARVT should not be represented as
-            "the theory behind the five architectures". It is a sixth
-            technical experiment with a different property.
-          </p>
-        </div>
-      </div>
-
-      <div class="map">
-
-        <div class="map-root">
-          Theory ↔ implementation ↔ new theory
-        </div>
-
-        <div class="flow" style="justify-content:center; margin: 30px 0;">
-          <span>Relational value intuition</span>
-          <i>→</i>
-          <span>Visitor contribution</span>
-          <i>→</i>
-          <span>Semantic composition</span>
-          <i>→</i>
-          <span>New residue</span>
-          <i>→</i>
-          <span>Corpus evolution</span>
-          <i>→</i>
-          <span>New relational intuition</span>
-          <i>↻</i>
-        </div>
-
-        <p class="lead" style="margin: 30px auto 0; text-align:center;">
-          The architecture becomes part of what it theorizes.
+      <div class="hero">
+        <div class="eyebrow">Ongoing R&amp;D</div>
+
+        <h1>
+          Experiments toward an AI-native social coordination infrastructure.
+        </h1>
+
+        <p class="hero-lead">
+          Six separate architectures exploring how humans and autonomous agents
+          might create, represent, discover, execute and exchange value without
+          requiring a single application or a single central authority.
         </p>
 
+        <p class="hero-question">
+          The projects are deliberately separate. Each isolates a different
+          coordination primitive and tests it under real technical constraints:
+          locality, limited connectivity, latency, independent progression,
+          semantic ambiguity and the absence of central coordination.
+        </p>
       </div>
-
     </div>
-  </section>
 
 
-  <!-- OPEN SOURCE -->
-  <section>
-    <div class="container">
+    <section id="architectures">
+      <div class="container">
 
-      <div class="section-head">
-        <div>
-          <div class="section-number">06 / OPEN SOURCE</div>
-        </div>
+        <div class="section-heading">
+          <div class="section-number">01 / SIX ARCHITECTURES</div>
 
-        <div>
-          <h2>
-            The smallest useful primitive may matter more than the largest application.
-          </h2>
-
-          <p class="lead">
-            The goal is to discover mechanisms that independent actors can
-            adopt without first joining the same platform.
-          </p>
-        </div>
-      </div>
-
-      <div class="status">
-
-        <div class="status-note">
-          Source code makes an architecture forkable.
-          Forkability makes divergence possible.
-          Interoperability makes divergence composable.
-        </div>
-
-        <div>
-          <ul>
-            <li>Read the implementation.</li>
-            <li>Copy it.</li>
-            <li>Modify it.</li>
-            <li>Fork it.</li>
-            <li>Operate it independently.</li>
-            <li>Combine it with another implementation.</li>
-          </ul>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- STATUS -->
-  <section id="status">
-    <div class="container">
-
-      <div class="section-head">
-        <div>
-          <div class="section-number">07 / CURRENT STATUS</div>
-        </div>
-
-        <div>
-          <h2>
-            Experiments, not a solved society.
-          </h2>
-
-          <p class="lead">
-            These repositories are prototypes, reference implementations and
-            theoretical software. Their value is partly in making assumptions
-            explicit, testable and forkable.
-          </p>
-        </div>
-      </div>
-
-      <div class="callout">
-        <strong>Current direction</strong>
-
-        Build coordination infrastructure that can survive divergence:
-        different implementations, different communities, different
-        interfaces, different agents and different economic contexts.
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- REPOSITORIES -->
-  <section>
-    <div class="container">
-
-      <div class="section-head">
-        <div>
-          <div class="section-number">08 / REPOSITORIES</div>
-        </div>
-
-        <div>
-          <h2>
-            The six experiments.
-          </h2>
-        </div>
-      </div>
-
-      <div class="architecture-grid">
-
-        <a class="architecture" href="https://github.com/theodoreyong9/Jobber">
           <div>
-            <div class="architecture-index">01</div>
+            <h2>Six coordination primitives.</h2>
+            <p class="section-intro">
+              Each project explores a different primitive. They are not modules
+              of a single application and are not intended to become one
+              monolithic platform.
+            </p>
+          </div>
+        </div>
+
+
+        <div class="architecture-grid">
+
+          <!-- JOBBER -->
+
+          <article class="card">
+            <div class="card-index">01 — Personal agency</div>
             <h3>Jobber</h3>
-            <div class="primitive">Personal Interoperable Agency</div>
-          </div>
-          <span>GitHub →</span>
-        </a>
 
-        <a class="architecture" href="https://github.com/theodoreyong9/SGD">
-          <div>
-            <div class="architecture-index">02</div>
+            <span class="primitive">
+              Primitive: personal interoperable agency
+            </span>
+
+            <p>
+              A local-first P2P coordination environment for human
+              opportunities. The individual keeps agency locally while
+              discovery and matching happen between directly connected peers.
+            </p>
+
+            <div class="architecture-detail">
+              <strong>Architecture</strong>
+
+              <div class="flow">
+                <span>Local identity</span>
+                <span class="arrow">→</span>
+                <span>IndexedDB</span>
+                <span class="arrow">→</span>
+                <span>Local matching</span>
+                <span class="arrow">→</span>
+                <span>P2P discovery</span>
+                <span class="arrow">→</span>
+                <span>Human action</span>
+              </div>
+
+              <ul>
+                <li>No backend or central database.</li>
+                <li>Browser ECDSA identity.</li>
+                <li>IndexedDB for local persistence.</li>
+                <li>WebRTC P2P transport through Trystero.</li>
+                <li>Local matching algorithm.</li>
+                <li>Optional local WebLLM intelligence when supported.</li>
+                <li>Research artifacts retain provenance and can be exported.</li>
+                <li>Two tabs or devices can be used to test P2P behavior.</li>
+              </ul>
+            </div>
+
+            <div class="architecture-detail">
+              <strong>Namespaces</strong>
+
+              <ul>
+                <li>
+                  <strong>Employment:</strong> Candidate / Recruiter.
+                  Candidate cover letters remain private until explicitly
+                  shared. Candidate and recruiter keywords are extracted from
+                  their actual documents or job descriptions.
+                </li>
+                <li>
+                  <strong>Business:</strong> Offer / Client, including rate
+                  versus budget-range matching.
+                </li>
+                <li>
+                  <strong>Independant:</strong> Service / Utilisateur, with
+                  self-declared LinkedIn URL on the service side.
+                </li>
+                <li>
+                  <strong>Annonce:</strong> Seller / Buyer, with client-side
+                  image resizing.
+                </li>
+                <li>
+                  <strong>Dating:</strong> reciprocal profiles and matching;
+                  the final score is constrained by the weaker direction.
+                </li>
+                <li>
+                  <strong>Intelligence:</strong> ordered Build / Critic chains
+                  where participants explicitly request and obtain a position.
+                </li>
+              </ul>
+            </div>
+
+            <div class="architecture-detail">
+              <strong>Other mechanisms</strong>
+
+              <ul>
+                <li>Explicit human-in-the-loop actions.</li>
+                <li>Local test matching without a network.</li>
+                <li>Research discovery only among directly connected peers.</li>
+                <li>No central research directory.</li>
+                <li>Chat persistence keyed by stable identity.</li>
+                <li>Attachment offer / accept handshake.</li>
+                <li>Canonical message IDs for synchronization.</li>
+                <li>Full identity/profile/blocklist/research backup and restore.</li>
+                <li>Optional Agent mode as a cross-namespace matcher.</li>
+                <li>Optional Near mode using opt-in geolocation and radius.</li>
+              </ul>
+            </div>
+
+            <div class="links">
+              <a class="link" href="https://theodoreyong9.github.io/Jobber/" target="_blank">
+                Live
+              </a>
+              <a class="link" href="https://github.com/theodoreyong9/Jobber" target="_blank">
+                GitHub
+              </a>
+            </div>
+          </article>
+
+
+          <!-- SGD -->
+
+          <article class="card">
+            <div class="card-index">02 — Collective representation</div>
             <h3>SGD</h3>
-            <div class="primitive">Semantic Graph Democracy</div>
-          </div>
-          <span>GitHub →</span>
-        </a>
 
-        <a class="architecture" href="https://github.com/theodoreyong9/YourMinedApp">
-          <div>
-            <div class="architecture-index">03</div>
+            <span class="primitive">
+              Primitive: collective semantic representation
+            </span>
+
+            <p>
+              Semantic Graph Democracy explores collective representation
+              through an AI-mediated graph rather than a binary vote.
+            </p>
+
+            <div class="architecture-detail">
+              <strong>Core idea</strong>
+
+              <p>
+                A submission is simultaneously a search operation, a
+                navigation operation and a participation operation in the
+                collective graph. There is no conventional for / against
+                button.
+              </p>
+            </div>
+
+            <div class="architecture-detail">
+              <strong>Architecture</strong>
+
+              <div class="flow">
+                <span>User text</span>
+                <span class="arrow">→</span>
+                <span>Local semantic parsing</span>
+                <span class="arrow">→</span>
+                <span>Issue</span>
+                <span class="arrow">→</span>
+                <span>GitHub Action</span>
+                <span class="arrow">→</span>
+                <span>Canonical graph</span>
+              </div>
+
+              <ul>
+                <li>Static browser architecture.</li>
+                <li>WebLLM provides local semantic parsing preview.</li>
+                <li>Search is embedding-assisted.</li>
+                <li>
+                  Publication can use a prefilled GitHub issue or optional
+                  Device Flow OAuth.
+                </li>
+                <li>
+                  GitHub Actions perform server-side semantic extraction from
+                  the submitted text.
+                </li>
+                <li>
+                  The canonical key is determined server-side rather than by
+                  the client.
+                </li>
+                <li>Invalid submissions are closed.</li>
+                <li>Valid submissions update graph JSON and are committed.</li>
+              </ul>
+            </div>
+
+            <div class="architecture-detail">
+              <strong>Security / anti-gaming properties</strong>
+
+              <ul>
+                <li>Issue bodies are treated as data.</li>
+                <li>
+                  Semantic fields and canonical keys are not client-authoritative.
+                </li>
+                <li>No third-party code is executed by CI.</li>
+                <li>
+                  Repeated occurrences of the same canonical proposal have
+                  diminishing return, approximately 1/n.
+                </li>
+                <li>
+                  Direct OAuth publication and prefilled issue publication use
+                  the same issue-body representation.
+                </li>
+              </ul>
+            </div>
+
+            <div class="architecture-detail">
+              <strong>Current limits</strong>
+
+              <ul>
+                <li>Diversity structure is not yet implemented.</li>
+                <li>The domain remains a fixed enum.</li>
+                <li>There is no true subject-level graph yet.</li>
+                <li>Sybil resistance through reformulation remains open.</li>
+                <li>No human uniqueness proof.</li>
+                <li>Graph rendering is currently O(n²).</li>
+                <li>Embedding JSON remains relatively bulky.</li>
+              </ul>
+            </div>
+
+            <div class="links">
+              <a class="link" href="https://theodoreyong9.github.io/SGD/" target="_blank">
+                Live
+              </a>
+              <a class="link" href="https://github.com/theodoreyong9/SGD" target="_blank">
+                GitHub
+              </a>
+            </div>
+          </article>
+
+
+          <!-- YOURMINE -->
+
+          <article class="card">
+            <div class="card-index">03 — Permissionless execution</div>
             <h3>YourMine</h3>
-            <div class="primitive">Permissionless Execution</div>
-          </div>
-          <span>GitHub →</span>
-        </a>
 
-        <a class="architecture" href="https://github.com/theodoreyong9/AIWA_chain">
-          <div>
-            <div class="architecture-index">04</div>
+            <span class="primitive">
+              Primitive: permissionless execution
+            </span>
+
+            <p>
+              A permissionless WebOS where applications and interface themes
+              are published as ordinary files and can evolve through a
+              distributed registry.
+            </p>
+
+            <div class="architecture-detail">
+              <strong>Core model</strong>
+
+              <ul>
+                <li>
+                  <strong>Spheres</strong> are applications.
+                </li>
+                <li>
+                  <strong>Themes</strong> are interface layouts.
+                </li>
+                <li>
+                  Both are plain files hosted through GitHub forks.
+                </li>
+                <li>
+                  Distribution is ordered by participatory scoring rather than
+                  editorial selection.
+                </li>
+              </ul>
+            </div>
+
+            <div class="architecture-detail">
+              <strong>Runtime</strong>
+
+              <div class="flow">
+                <span>index.html</span>
+                <span class="arrow">→</span>
+                <span>theme</span>
+                <span class="arrow">→</span>
+                <span>desk.js</span>
+                <span class="arrow">→</span>
+                <span>app.js</span>
+                <span class="arrow">→</span>
+                <span>sphere</span>
+              </div>
+
+              <ul>
+                <li>
+                  <code>index.html</code> boots the environment.
+                </li>
+                <li>
+                  The selected theme is fetched and injected.
+                </li>
+                <li>
+                  <code>desk.js</code> provides the desktop runtime.
+                </li>
+                <li>
+                  <code>app.js</code> manages sphere lifecycle, P2P, PWA and
+                  profile functionality.
+                </li>
+                <li>
+                  Source modules cover mining, building, lists and profiles.
+                </li>
+                <li>
+                  Registries are represented through
+                  <code>files.json</code> and <code>themes-files.json</code>.
+                </li>
+              </ul>
+            </div>
+
+            <div class="architecture-detail">
+              <strong>Scoped agency</strong>
+
+              <p>
+                Each sphere receives a scoped context <code>ctx</code> rather
+                than unrestricted access to the global runtime.
+              </p>
+
+              <ul>
+                <li>Scoped storage.</li>
+                <li>Scoped UI.</li>
+                <li>Scoped profile access.</li>
+                <li>Scoped P2P operations.</li>
+                <li>Scoped navigation.</li>
+              </ul>
+            </div>
+
+            <div class="architecture-detail">
+              <strong>Registry progression</strong>
+
+              <p>
+                Publication follows a participatory score rule:
+              </p>
+
+              <p>
+                <code>
+                  (score_now + 1) / (laps_now + 1)
+                  &gt;
+                  (score_last + 1) / (laps_last + 1)
+                </code>
+              </p>
+
+              <ul>
+                <li>The first publication is always allowed.</li>
+                <li>A new sphere must improve the ratio.</li>
+                <li>Updates to an existing sphere require ownership.</li>
+                <li>The score is frozen at merge.</li>
+                <li>Ranking is based on score and laps.</li>
+                <li>There is no editorial override.</li>
+              </ul>
+            </div>
+
+            <div class="architecture-detail">
+              <strong>Interplanetary Proof of Will</strong>
+
+              <p>
+                Earth monetary systems assume communication latencies that
+                become problematic between planets. A round trip between Earth
+                and Mars can take minutes, making permanent global consensus
+                impractical.
+              </p>
+
+              <p>
+                Proof of Will therefore explores a geographically independent
+                form of participation: mining where you are, with who you are,
+                without requiring global synchronization beyond the passage of
+                time itself.
+              </p>
+            </div>
+
+            <div class="links">
+              <a class="link" href="https://yourmine-dapp.web.app" target="_blank">
+                Live
+              </a>
+              <a class="link" href="https://github.com/theodoreyong9/YourMinedApp" target="_blank">
+                GitHub
+              </a>
+            </div>
+          </article>
+
+
+          <!-- AIWA -->
+
+          <article class="card">
+            <div class="card-index">04 — Partitioned global coordination</div>
             <h3>AIWA Chain</h3>
-            <div class="primitive">Partitioned Global Coordination</div>
-          </div>
-          <span>GitHub →</span>
-        </a>
 
-        <a class="architecture" href="https://github.com/theodoreyong9/Smartank">
-          <div>
-            <div class="architecture-index">05</div>
+            <span class="primitive">
+              Primitive: locally progressing value
+            </span>
+
+            <p>
+              A protocol experiment for value progression and transaction
+              validation across independently progressing domains.
+            </p>
+
+            <div class="architecture-detail">
+              <strong>Starting point</strong>
+
+              <p>
+                Two wallets, one identity. A Solana keypair activates a real,
+                irreversible burn — the Ignition — which requires genuine
+                internet access to Earth's Solana network.
+              </p>
+
+              <p>
+                The same identity can then accrue native AIWA locally based on
+                elapsed progression, without relying on a shared clock or
+                requiring further network access.
+              </p>
+            </div>
+
+            <div class="architecture-detail">
+              <strong>Architecture</strong>
+
+              <div class="flow">
+                <span>Solana identity</span>
+                <span class="arrow">→</span>
+                <span>Ignition</span>
+                <span class="arrow">→</span>
+                <span>Local progression</span>
+                <span class="arrow">→</span>
+                <span>Accrual</span>
+                <span class="arrow">→</span>
+                <span>Transfer</span>
+                <span class="arrow">→</span>
+                <span>Mirror</span>
+              </div>
+
+              <ul>
+                <li>Sequential-delay progression.</li>
+                <li>Value accrual based on progression.</li>
+                <li>Conservation of transferred value.</li>
+                <li>Mirror / reception layer.</li>
+                <li>Weighted Causal Tick.</li>
+                <li>Relative-rate mechanisms.</li>
+                <li>Optional P2P signaling through Trystero / Nostr.</li>
+              </ul>
+            </div>
+
+            <div class="architecture-detail">
+              <strong>Progression</strong>
+
+              <p>
+                Progression is tied to real sequential computation through a
+                verifiable delay function rather than a shared calendar clock.
+                This is intended to permit independent Earth / Mars progression
+                without requiring the two domains to agree continuously.
+              </p>
+            </div>
+
+            <div class="architecture-detail">
+              <strong>Implementation</strong>
+
+              <ul>
+                <li>
+                  JavaScript reference implementation.
+                </li>
+                <li>
+                  Rust implementation matching specified primitives
+                  byte-for-byte.
+                </li>
+                <li>
+                  Modules include units, domain identity, event DAG,
+                  VDF, progression, reward, accrual, conservation, identity
+                  cost, hardware attestation, mirror, causal tick and wallet.
+                </li>
+                <li>
+                  Contract registry and synchronization protocol are included
+                  as experimental components.
+                </li>
+              </ul>
+            </div>
+
+            <div class="architecture-detail">
+              <strong>Honest limits</strong>
+
+              <ul>
+                <li>
+                  Initial Solana activation remains dependent on an
+                  Earth-hosted RPC.
+                </li>
+                <li>Current activation uses devnet.</li>
+                <li>Browser / P2P testing has practical limits.</li>
+                <li>
+                  Transport between independent economies remains unresolved.
+                </li>
+                <li>
+                  A real exchange rate between separate economies is not solved
+                  by the protocol.
+                </li>
+              </ul>
+            </div>
+
+            <div class="links">
+              <a class="link" href="https://theodoreyong9.github.io/AIWA_chain/" target="_blank">
+                Live
+              </a>
+              <a class="link" href="https://github.com/theodoreyong9/AIWA_chain" target="_blank">
+                GitHub
+              </a>
+            </div>
+          </article>
+
+
+          <!-- SMARTANK -->
+
+          <article class="card">
+            <div class="card-index">05 — Capability discovery</div>
             <h3>Smartank</h3>
-            <div class="primitive">AI-native Capability Discovery</div>
-          </div>
-          <span>GitHub →</span>
-        </a>
 
-        <a class="architecture arvt" href="https://github.com/theodoreyong9/ARVT">
-          <div>
-            <div class="architecture-index">06 / REFLEXIVE</div>
+            <span class="primitive">
+              Primitive: AI-native capability discovery
+            </span>
+
+            <p>
+              An AI Navigator for Hugging Face: describe what you want to
+              build, let local AI structure the intent, search the real
+              catalog, rank candidates and explain the result.
+            </p>
+
+            <div class="architecture-detail">
+              <strong>Architecture</strong>
+
+              <div class="flow">
+                <span>User intent</span>
+                <span class="arrow">→</span>
+                <span>CPU taxonomy</span>
+                <span class="arrow">→</span>
+                <span>Local WebLLM</span>
+                <span class="arrow">→</span>
+                <span>HF API</span>
+                <span class="arrow">→</span>
+                <span>CPU ranking</span>
+                <span class="arrow">→</span>
+                <span>Local synthesis</span>
+              </div>
+
+              <ul>
+                <li>100% vanilla HTML / CSS / JavaScript.</li>
+                <li>No framework, bundler or build system.</li>
+                <li>Local WebLLM / WebGPU for reasoning.</li>
+                <li>Only the public Hugging Face API is used for catalog search.</li>
+                <li>
+                  CPU-first design: GPU inference is used only where it adds
+                  value.
+                </li>
+              </ul>
+            </div>
+
+            <div class="architecture-detail">
+              <strong>Reasoning model</strong>
+
+              <p>
+                The LLM is deliberately not treated as a catalog that already
+                knows the available models. It structures the user's intent,
+                searches the real catalog, and reasons over retrieved
+                candidates.
+              </p>
+
+              <ul>
+                <li>
+                  Deterministic CPU taxonomy identifies the initial task.
+                </li>
+                <li>
+                  WebLLM confirms or corrects the task and extracts material,
+                  language and priorities.
+                </li>
+                <li>
+                  Hugging Face search uses task and reinforcement queries.
+                </li>
+                <li>
+                  CPU pruning and ranking reduce the candidate set.
+                </li>
+                <li>
+                  WebLLM synthesizes an explanation only from real candidates.
+                </li>
+                <li>
+                  ExplorerView receives structured JSON.
+                </li>
+              </ul>
+            </div>
+
+            <div class="architecture-detail">
+              <strong>Failure behavior</strong>
+
+              <ul>
+                <li>
+                  If local synthesis is inconsistent or hallucinatory, the
+                  system can fall back to deterministic ranking.
+                </li>
+                <li>
+                  When too few candidates are found, neighboring tasks can be
+                  searched automatically and the broadening is explicitly
+                  disclosed.
+                </li>
+                <li>
+                  Composite objectives can become a capability pipeline.
+                </li>
+              </ul>
+            </div>
+
+            <div class="architecture-detail">
+              <strong>Privacy</strong>
+
+              <p>
+                Reasoning stays local. Only derived search keywords are sent to
+                the public Hugging Face API.
+              </p>
+            </div>
+
+            <div class="links">
+              <a class="link" href="https://theodoreyong9.github.io/Smartank/" target="_blank">
+                Live
+              </a>
+              <a class="link" href="https://github.com/theodoreyong9/Smartank" target="_blank">
+                GitHub
+              </a>
+            </div>
+          </article>
+
+
+          <!-- ARVT -->
+
+          <article class="card full">
+            <div class="card-index">06 — Reflexive value architecture</div>
             <h3>ARVT</h3>
-            <div class="primitive">Autonomous Relation Value Theory</div>
+
+            <span class="primitive">
+              Primitive: reflexive value formation
+            </span>
+
+            <p>
+              ARVT explores value as the residue of a relation whose cost is
+              real and whose sustainability is maintained. The architecture is
+              a living philosophical corpus that evolves through sequential
+              visitor contributions arbitrated by an LLM.
+            </p>
+
+            <div class="architecture-detail">
+              <strong>The proposition</strong>
+
+              <p>
+                « La valeur est le résidu d'une relation dont le coût est réel
+                et la soutenabilité maintenue. »
+              </p>
+
+              <p>
+                ARVT is not simply a conventional application layer and it is
+                not merely the theory sitting above the other architectures.
+                It is a peer architecture in its own right.
+              </p>
+            </div>
+
+            <div class="architecture-detail">
+              <strong>Technical architecture</strong>
+
+              <div class="flow">
+                <span>Visitor</span>
+                <span class="arrow">→</span>
+                <span>Graph node</span>
+                <span class="arrow">→</span>
+                <span>Question</span>
+                <span class="arrow">→</span>
+                <span>Proposal queue</span>
+                <span class="arrow">→</span>
+                <span>2 proposals</span>
+                <span class="arrow">→</span>
+                <span>Synthesis</span>
+                <span class="arrow">→</span>
+                <span>New residue</span>
+              </div>
+
+              <ul>
+                <li>GitHub Pages static interface.</li>
+                <li>Gun.js provides the living P2P corpus and graph.</li>
+                <li>No application server.</li>
+                <li>No central database.</li>
+                <li>GitHub Actions snapshot the corpus every six hours.</li>
+                <li>
+                  Persistent artifacts include <code>corpus.md</code>,
+                  <code>graph.json</code> and snapshot history.
+                </li>
+              </ul>
+            </div>
+
+            <div class="architecture-detail">
+              <strong>Contribution cycle</strong>
+
+              <div class="flow">
+                <span>Visitor arrives</span>
+                <span class="arrow">→</span>
+                <span>Selects node</span>
+                <span class="arrow">→</span>
+                <span>Asks question</span>
+                <span class="arrow">→</span>
+                <span>Proposal enters queue</span>
+                <span class="arrow">→</span>
+                <span>Two proposals</span>
+                <span class="arrow">→</span>
+                <span>Synthesis</span>
+                <span class="arrow">→</span>
+                <span>Corpus extension</span>
+                <span class="arrow">→</span>
+                <span>Node densification</span>
+              </div>
+            </div>
+
+            <div class="architecture-detail">
+              <strong>Graph and reflexivity</strong>
+
+              <p>
+                The graph currently includes concepts such as residue,
+                relation, irreversibility and sustainability.
+              </p>
+
+              <p>
+                Node density reflects the number and history of syntheses.
+                The model directs subsequent contributions toward less-dense
+                nodes. This creates a gradient of exploration that follows the
+                theory itself.
+              </p>
+
+              <p>
+                Guidance by gradient, conforming to the theory: the mechanism
+                used to evolve the corpus becomes part of what the corpus
+                theorizes.
+              </p>
+
+              <p>
+                This is the reflexive closure: the architecture does not merely
+                describe the concept of value; its own operation becomes an
+                instance of the relation it is attempting to understand.
+              </p>
+            </div>
+
+            <div class="links">
+              <a class="link" href="https://theodoreyong9.github.io/ARVT/" target="_blank">
+                Live
+              </a>
+              <a class="link" href="https://github.com/theodoreyong9/ARVT" target="_blank">
+                GitHub
+              </a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <section id="map">
+      <div class="container">
+
+        <div class="section-heading">
+          <div class="section-number">02 / MAP</div>
+
+          <div>
+            <h2>Different problems, related direction.</h2>
+            <p class="section-intro">
+              The architectures are intentionally orthogonal. Together they
+              form a set of experiments around agency, representation,
+              execution, value, discovery and reflexive evolution.
+            </p>
           </div>
-          <span>GitHub →</span>
-        </a>
+        </div>
+
+        <div class="map">
+
+          <div class="map-item">
+            <h3>Jobber</h3>
+            <p>
+              How can an individual expose needs and opportunities without
+              surrendering agency to a central platform?
+            </p>
+          </div>
+
+          <div class="map-item">
+            <h3>SGD</h3>
+            <p>
+              How can collective intent be represented semantically rather than
+              reduced to binary voting?
+            </p>
+          </div>
+
+          <div class="map-item">
+            <h3>YourMine</h3>
+            <p>
+              How can execution and application distribution remain
+              permissionless?
+            </p>
+          </div>
+
+          <div class="map-item">
+            <h3>AIWA</h3>
+            <p>
+              How can value progress when domains cannot maintain continuous
+              global consensus?
+            </p>
+          </div>
+
+          <div class="map-item">
+            <h3>Smartank</h3>
+            <p>
+              How can AI discover capabilities from a real external catalog
+              without pretending to know the catalog by heart?
+            </p>
+          </div>
+
+          <div class="map-item">
+            <h3>ARVT</h3>
+            <p>
+              How can an architecture evolve through the same relation it is
+              attempting to theorize?
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <section>
+      <div class="container">
+
+        <div class="section-heading">
+          <div class="section-number">03 / SYSTEM VIEW</div>
+
+          <div>
+            <h2>From individual agency to collective coordination.</h2>
+            <p class="section-intro">
+              There is no requirement that the six systems become one product.
+              Their relationship is conceptual: each isolates a mechanism that
+              becomes relevant when centralized coordination becomes expensive,
+              fragile or impossible.
+            </p>
+          </div>
+        </div>
+
+        <div class="architecture-detail">
+
+          <div class="flow">
+            <span>Personal agency</span>
+            <span class="arrow">→</span>
+            <span>Collective representation</span>
+            <span class="arrow">→</span>
+            <span>Permissionless execution</span>
+            <span class="arrow">→</span>
+            <span>Locally progressing value</span>
+            <span class="arrow">→</span>
+            <span>Capability discovery</span>
+            <span class="arrow">→</span>
+            <span>Reflexive evolution</span>
+          </div>
+
+          <p style="margin-top: 30px; color: var(--muted);">
+            The common question is not “how do I build another application?”
+            It is closer to: what primitives are required for people,
+            applications and autonomous agents to coordinate when there is no
+            single system that can see, decide and control everything?
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="principles">
+      <div class="container">
+
+        <div class="section-heading">
+          <div class="section-number">04 / PRINCIPLES</div>
+
+          <div>
+            <h2>Constraints are part of the design.</h2>
+            <p class="section-intro">
+              The projects deliberately work with constraints instead of
+              hiding them behind infrastructure.
+            </p>
+          </div>
+        </div>
+
+        <div class="principles">
+
+          <div class="principle">
+            <h3>Local agency</h3>
+            <p>
+              Keep identity, reasoning, data or progression as close to the
+              participant as possible.
+            </p>
+          </div>
+
+          <div class="principle">
+            <h3>No permanent central authority</h3>
+            <p>
+              Central services may appear where unavoidable, but they should
+              not become the conceptual source of truth for the whole system.
+            </p>
+          </div>
+
+          <div class="principle">
+            <h3>Explicit trust boundaries</h3>
+            <p>
+              Identity, permissions, provenance, publication and synchronization
+              are treated as separate concerns.
+            </p>
+          </div>
+
+          <div class="principle">
+            <h3>Real constraints</h3>
+            <p>
+              Offline operation, latency, disconnected domains, limited
+              compute, browser restrictions and ambiguous semantics are treated
+              as architectural inputs.
+            </p>
+          </div>
+
+          <div class="principle">
+            <h3>AI as participant</h3>
+            <p>
+              AI is explored not only as a coding assistant but as a mechanism
+              for semantic interpretation, capability discovery, critique,
+              synthesis and coordination.
+            </p>
+          </div>
+
+          <div class="principle">
+            <h3>Graceful failure</h3>
+            <p>
+              When AI or connectivity fails, deterministic or local mechanisms
+              should remain useful whenever possible.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <section>
+      <div class="container">
+
+        <div class="section-heading">
+          <div class="section-number">05 / DEVELOPMENT METHOD</div>
+
+          <div>
+            <h2>Built in dialogue.</h2>
+            <p class="section-intro">
+              The development process is itself part of the experiment.
+            </p>
+          </div>
+        </div>
+
+        <div class="dialogue">
+
+          <div class="dialogue-label">Three-way dialogue</div>
+
+          <h3>Me + ChatGPT + Claude</h3>
+
+          <p>
+            This project is developed through an ongoing three-way dialogue
+            between myself, ChatGPT and Claude.
+          </p>
+
+          <p>
+            The models are not treated simply as coding assistants. They are
+            used as counterparts for exploring ideas, challenging assumptions,
+            testing architectural coherence, writing and reviewing
+            implementations, and pushing concepts toward something executable.
+          </p>
+
+          <p>
+            The resulting architectures are therefore also experiments in
+            AI-native research and development: the development process itself
+            becomes part of the experiment.
+          </p>
+
+        </div>
+      </div>
+    </section>
+
+
+    <section>
+      <div class="container">
+
+        <div class="section-heading">
+          <div class="section-number">06 / REFLEXIVITY</div>
+
+          <div>
+            <h2>ARVT is a peer architecture — and a closure.</h2>
+
+            <p class="section-intro">
+              ARVT is deliberately not presented as a superior layer above the
+              other projects.
+            </p>
+          </div>
+        </div>
+
+        <div class="reflexivity">
+
+          <div class="reflex-card">
+            <h3>The architecture</h3>
+
+            <p>
+              Visitor → question → semantic node → proposal → queue →
+              composition of two proposals → synthesis → new residue →
+              densified graph → next contribution.
+            </p>
+
+            <p>
+              This is a concrete technical flow, implemented through a static
+              interface, Gun.js and periodic snapshots.
+            </p>
+          </div>
+
+          <div class="reflex-card">
+            <h3>The reflexivity</h3>
+
+            <p>
+              The system's mechanism for deciding where the next contribution
+              should go is derived from the conceptual structure it is
+              producing.
+            </p>
+
+            <p>
+              Architecture becomes part of the theory. The theory becomes a
+              constraint on the architecture.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <section id="status">
+      <div class="container">
+
+        <div class="section-heading">
+          <div class="section-number">07 / STATUS</div>
+
+          <div>
+            <h2>Working experiments, not finished products.</h2>
+
+            <p class="section-intro">
+              The implementations are deliberately concrete, but the larger
+              architectures remain research experiments. Known limitations
+              are part of the documentation rather than something to hide.
+            </p>
+          </div>
+        </div>
+
+        <div class="status">
+
+          <div class="status-card">
+            <h3>Current approach</h3>
+
+            <p>
+              Small, independently deployable experiments. Prefer plain
+              browser primitives, local computation and simple distributed
+              mechanisms where they are sufficient.
+            </p>
+
+            <p>
+              Avoid introducing infrastructure merely because it is familiar.
+              Add complexity only when the architecture requires it.
+            </p>
+          </div>
+
+          <div class="status-card">
+            <h3>What remains open</h3>
+
+            <p>
+              Sybil resistance, distributed identity, cross-domain exchange
+              rates, richer semantic graphs, transport independence,
+              uniqueness, scaling and stronger guarantees around autonomous
+              coordination remain open research problems.
+            </p>
+
+            <p>
+              The goal is not to claim that these problems are solved, but to
+              make the assumptions and mechanisms concrete enough to test them.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <footer>
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div>
+          <div class="brand">JdC</div>
+
+          <p>
+            Experiments toward an AI-native social coordination
+            infrastructure.
+          </p>
+        </div>
+
+        <div class="repo-list">
+
+          <a href="https://github.com/theodoreyong9/Jobber" target="_blank">
+            Jobber
+          </a>
+
+          <a href="https://github.com/theodoreyong9/SGD" target="_blank">
+            SGD
+          </a>
+
+          <a href="https://github.com/theodoreyong9/YourMinedApp" target="_blank">
+            YourMine
+          </a>
+
+          <a href="https://github.com/theodoreyong9/AIWA_chain" target="_blank">
+            AIWA Chain
+          </a>
+
+          <a href="https://github.com/theodoreyong9/Smartank" target="_blank">
+            Smartank
+          </a>
+
+          <a href="https://github.com/theodoreyong9/ARVT" target="_blank">
+            ARVT
+          </a>
+
+        </div>
 
       </div>
 
     </div>
-  </section>
-
-</main>
-
-
-<footer>
-  <div class="container">
-    <div class="footer-inner">
-      <div>
-        © 2026 Jean da Cunha
-      </div>
-
-      <div>
-        Experiments toward an AI-native social coordination infrastructure.
-      </div>
-    </div>
-  </div>
-</footer>
+  </footer>
 
 </body>
 </html>
