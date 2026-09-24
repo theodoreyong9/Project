@@ -22,9 +22,18 @@
     overflow:hidden;
     background:#0d1117;
   }
+  :root{
+    /* Hauteur de la bande dédiée au swipe (ne recouvre JAMAIS l'iframe) */
+    --swipe-h: 26px;
+  }
   #stage{
     position:fixed;
-    inset:0;
+    top:0;
+    left:0;
+    right:0;
+    /* La zone de swipe a sa propre bande en dessous, donc le stage
+       s'arrête AVANT elle : aucun recouvrement avec les iframes. */
+    bottom: calc(var(--swipe-h) + env(safe-area-inset-bottom, 0px));
     overflow:hidden;
   }
   #track{
@@ -44,24 +53,27 @@
     display:block;
     background:#0d1117;
   }
-  /* Zone de swipe invisible en bas de l'écran */
+  /* Zone de swipe : bande dédiée sous les iframes, ne recouvre rien de
+     cliquable. Elle ne touche donc jamais au contenu des 3 sites. */
   #swipeZone{
     position:fixed;
     left:0;
     right:0;
-    bottom: env(safe-area-inset-bottom, 0px);
-    height:70px;
+    bottom:0;
+    height: calc(var(--swipe-h) + env(safe-area-inset-bottom, 0px));
     z-index:1000;
-    background:transparent;
+    background:#0d1117; /* même couleur que le fond = quasi invisible */
     touch-action:none;
   }
-  /* Petits points indicateurs discrets (optionnels, quasi invisibles) */
+  /* Petits points indicateurs discrets, dans la bande de swipe elle-même */
   #dots{
     position:fixed;
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 8px);
+    bottom: env(safe-area-inset-bottom, 0px);
     left:0;
     right:0;
+    height: var(--swipe-h);
     display:flex;
+    align-items:center;
     justify-content:center;
     gap:6px;
     z-index:999;

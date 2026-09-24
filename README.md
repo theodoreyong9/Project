@@ -41,8 +41,16 @@ Si une des 3 pages reste blanche dans l'iframe :
 
 ## Fonctionnement du swipe
 
-- Une zone transparente de 70px est posée en bas de l'écran (`#swipeZone`).
-- Elle capte les gestes tactiles (touch) et souris (pointer).
+- Les 3 iframes n'occupent PAS toute la hauteur de l'écran : une fine bande
+  de 26px (+ zone de sécurité iOS) est réservée en bas, en dehors des
+  iframes (`#swipeZone`). Comme cette bande ne recouvre jamais le contenu
+  des sites, **tout reste cliquable normalement dans les 3 apps**, y compris
+  tout en bas de leur interface.
+- Cette bande capte les gestes tactiles (touch) et souris (pointer).
+- Techniquement, il est impossible de superposer une zone de swipe
+  *par-dessus* une iframe cross-origin tout en laissant les clics la
+  traverser (limitation de sécurité des navigateurs) — c'est pourquoi la
+  zone est placée à côté des iframes plutôt que dessus.
 - Un glissement horizontal de plus de 40px déclenche le passage à la page
   suivante/précédente, avec une boucle infinie sans à-coup (technique des
   slides clonés en début/fin de piste).
