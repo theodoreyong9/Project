@@ -1,1517 +1,257 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI-native Social Coordination — JdC</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --bg: #08080E;
-      --bg2: #101018;
-      --surface: #13131E;
-      --surface2: #1C1C2A;
-      --border: rgba(255,255,255,0.07);
-      --border-active: rgba(91,106,240,0.4);
-      --text: #F0EEE6;
-      --muted: rgba(240,238,230,0.45);
-      --faint: rgba(240,238,230,0.18);
-      --accent: #5B6AF0;
-      --accent2: #8B96F5;
-      --accent-glow: rgba(91,106,240,0.15);
-      --green: #3DD68C;
-      --max: 1200px;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Inter', sans-serif;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    .wrap {
-      width: min(calc(100% - 48px), var(--max));
-      margin: 0 auto;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 18px 0;
-      border-bottom: 1px solid var(--border);
-      background: rgba(8,8,14,0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-    }
-
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .brand {
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      font-size: 1.1rem;
-      letter-spacing: -0.02em;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .brand-dot {
-      width: 8px; height: 8px;
-      background: var(--accent);
-      border-radius: 50%;
-      box-shadow: 0 0 12px var(--accent);
-      animation: pulse 2.5s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.8); }
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      font-size: 0.82rem;
-      color: var(--muted);
-      letter-spacing: 0.01em;
-    }
-
-    .nav-links a:hover { color: var(--text); }
-
-    /* ── HERO ── */
-    .hero {
-      padding: 160px 0 120px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -200px; left: -200px;
-      width: 800px; height: 800px;
-      background: radial-gradient(circle, rgba(91,106,240,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: 0; right: -100px;
-      width: 600px; height: 400px;
-      background: radial-gradient(circle, rgba(61,214,140,0.04) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent2);
-      border: 1px solid var(--border-active);
-      border-radius: 999px;
-      padding: 5px 14px;
-      margin-bottom: 36px;
-      background: var(--accent-glow);
-    }
-
-    h1 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(3.2rem, 7vw, 7rem);
-      font-weight: 700;
-      line-height: 0.95;
-      letter-spacing: -0.045em;
-      max-width: 900px;
-      margin-bottom: 36px;
-    }
-
-    h1 em {
-      font-style: normal;
-      color: var(--accent2);
-    }
-
-    .hero-body {
-      max-width: 640px;
-      color: var(--muted);
-      font-size: 1.1rem;
-      line-height: 1.7;
-      margin-bottom: 56px;
-    }
-
-    .hero-stats {
-      display: flex;
-      gap: 48px;
-      padding-top: 40px;
-      border-top: 1px solid var(--border);
-    }
-
-    .stat-num {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 2.4rem;
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      color: var(--text);
-      line-height: 1;
-    }
-
-    .stat-label {
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-top: 4px;
-    }
-
-    /* ── SECTION WRAPPER ── */
-    section {
-      padding: 100px 0;
-      border-top: 1px solid var(--border);
-    }
-
-    .section-meta {
-      display: flex;
-      align-items: baseline;
-      gap: 16px;
-      margin-bottom: 56px;
-    }
-
-    .section-num {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
-
-    .section-title-line {
-      height: 1px;
-      flex: 1;
-      background: var(--border);
-    }
-
-    h2 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(2rem, 4vw, 3.6rem);
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      line-height: 1.05;
-      margin-bottom: 16px;
-    }
-
-    .section-sub {
-      color: var(--muted);
-      max-width: 600px;
-      font-size: 1rem;
-      line-height: 1.7;
-    }
-
-    /* ── ARCHITECTURE CARDS ── */
-    .arch-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      margin-top: 56px;
-    }
-
-    .arch-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 36px;
-      position: relative;
-      overflow: hidden;
-      transition: border-color 0.25s, background 0.25s;
-      cursor: default;
-    }
-
-    .arch-card:hover {
-      border-color: var(--border-active);
-      background: var(--surface2);
-    }
-
-    .arch-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 20% 20%, var(--accent-glow) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity 0.35s;
-      pointer-events: none;
-    }
-
-    .arch-card:hover::before { opacity: 1; }
-
-    .arch-card.full { grid-column: 1 / -1; }
-
-    .arch-number {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 5rem;
-      font-weight: 700;
-      letter-spacing: -0.06em;
-      line-height: 1;
-      color: var(--faint);
-      position: absolute;
-      top: 20px; right: 30px;
-      transition: color 0.25s;
-    }
-
-    .arch-card:hover .arch-number { color: rgba(91,106,240,0.15); }
-
-    .arch-label {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent2);
-      margin-bottom: 12px;
-    }
-
-    .arch-name {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: -0.035em;
-      margin-bottom: 6px;
-    }
-
-    .arch-primitive {
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .arch-primitive::before {
-      content: '';
-      display: inline-block;
-      width: 16px; height: 1px;
-      background: var(--accent);
-      flex-shrink: 0;
-    }
-
-    .arch-desc {
-      color: var(--muted);
-      font-size: 0.95rem;
-      line-height: 1.65;
-      margin-bottom: 28px;
-    }
-
-    .arch-detail {
-      border-top: 1px solid var(--border);
-      padding-top: 24px;
-      margin-top: 4px;
-    }
-
-    .detail-heading {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--faint);
-      margin-bottom: 14px;
-    }
-
-    .flow-chain {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 20px;
-    }
-
-    .flow-step {
-      font-size: 0.76rem;
-      font-weight: 500;
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 5px 10px;
-      color: var(--text);
-      white-space: nowrap;
-    }
-
-    .flow-arrow {
-      color: var(--accent);
-      font-size: 0.7rem;
-    }
-
-    .detail-list {
-      list-style: none;
-      display: grid;
-      gap: 6px;
-    }
-
-    .detail-list li {
-      font-size: 0.83rem;
-      color: var(--muted);
-      padding-left: 16px;
-      position: relative;
-    }
-
-    .detail-list li::before {
-      content: '·';
-      position: absolute;
-      left: 4px;
-      color: var(--accent);
-    }
-
-    .arch-links {
-      display: flex;
-      gap: 10px;
-      margin-top: 28px;
-    }
-
-    .arch-link {
-      font-size: 0.78rem;
-      font-weight: 500;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 7px 16px;
-      color: var(--muted);
-      transition: border-color 0.2s, color 0.2s, background 0.2s;
-    }
-
-    .arch-link:hover {
-      border-color: var(--accent);
-      color: var(--accent2);
-      background: var(--accent-glow);
-      text-decoration: none;
-    }
-
-    .arch-link.primary {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
-    }
-
-    .arch-link.primary:hover {
-      background: var(--accent2);
-      border-color: var(--accent2);
-      color: #fff;
-    }
-
-    /* ── MAP ── */
-    .map-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      overflow: hidden;
-      margin-top: 56px;
-    }
-
-    .map-item {
-      background: var(--bg2);
-      padding: 32px;
-      transition: background 0.2s;
-    }
-
-    .map-item:hover { background: var(--surface); }
-
-    .map-item-name {
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 600;
-      font-size: 1.1rem;
-      letter-spacing: -0.02em;
-      margin-bottom: 10px;
-    }
-
-    .map-item-q {
-      color: var(--muted);
-      font-size: 0.88rem;
-      line-height: 1.6;
-    }
-
-    /* ── SYSTEM FLOW ── */
-    .sys-flow {
-      margin-top: 56px;
-      padding: 40px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-    }
-
-    .sys-chain {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 28px;
-    }
-
-    .sys-step {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 600;
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 16px;
-      white-space: nowrap;
-      transition: border-color 0.2s;
-    }
-
-    .sys-step:hover { border-color: var(--accent); }
-
-    .sys-arrow {
-      color: var(--accent);
-      font-size: 0.85rem;
-    }
-
-    .sys-note {
-      color: var(--muted);
-      font-size: 0.92rem;
-      line-height: 1.7;
-      border-top: 1px solid var(--border);
-      padding-top: 24px;
-    }
-
-    /* ── PRINCIPLES ── */
-    .principles-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-top: 56px;
-    }
-
-    .principle-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 28px;
-      transition: border-color 0.2s;
-    }
-
-    .principle-card:hover { border-color: var(--border-active); }
-
-    .principle-icon {
-      width: 36px; height: 36px;
-      border-radius: 8px;
-      background: var(--accent-glow);
-      border: 1px solid var(--border-active);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      margin-bottom: 16px;
-    }
-
-    .principle-name {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      margin-bottom: 8px;
-    }
-
-    .principle-desc {
-      color: var(--muted);
-      font-size: 0.87rem;
-      line-height: 1.65;
-    }
-
-    /* ── DIALOGUE ── */
-    .dialogue-box {
-      margin-top: 56px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 48px;
-      max-width: 800px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .dialogue-box::after {
-      content: '';
-      position: absolute;
-      bottom: -60px; right: -60px;
-      width: 300px; height: 300px;
-      background: radial-gradient(circle, rgba(91,106,240,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .dialogue-tag {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent2);
-      border: 1px solid var(--border-active);
-      border-radius: 999px;
-      padding: 4px 12px;
-      display: inline-block;
-      margin-bottom: 24px;
-      background: var(--accent-glow);
-    }
-
-    .dialogue-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 2.2rem;
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      margin-bottom: 20px;
-    }
-
-    .dialogue-text {
-      color: var(--muted);
-      font-size: 0.95rem;
-      line-height: 1.75;
-    }
-
-    .dialogue-text + .dialogue-text { margin-top: 14px; }
-
-    /* ── REFLEXIVITY ── */
-    .reflex-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-top: 56px;
-    }
-
-    .reflex-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 36px;
-    }
-
-    .reflex-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.3rem;
-      font-weight: 600;
-      letter-spacing: -0.025em;
-      margin-bottom: 16px;
-    }
-
-    .reflex-text {
-      color: var(--muted);
-      font-size: 0.9rem;
-      line-height: 1.7;
-    }
-
-    .reflex-text + .reflex-text { margin-top: 12px; }
-
-    /* ── STATUS ── */
-    .status-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-top: 56px;
-    }
-
-    .status-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 36px;
-    }
-
-    .status-name {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.2rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      margin-bottom: 14px;
-    }
-
-    .status-text {
-      color: var(--muted);
-      font-size: 0.9rem;
-      line-height: 1.7;
-    }
-
-    .status-text + .status-text { margin-top: 12px; }
-
-    /* ── FOOTER ── */
-    footer {
-      padding: 64px 0;
-      border-top: 1px solid var(--border);
-    }
-
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 48px;
-    }
-
-    .footer-brand {
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      font-size: 1.2rem;
-      letter-spacing: -0.03em;
-      margin-bottom: 10px;
-    }
-
-    .footer-desc {
-      color: var(--muted);
-      font-size: 0.85rem;
-      max-width: 300px;
-      line-height: 1.6;
-    }
-
-    .footer-repos {
-      display: grid;
-      grid-template-columns: repeat(3, auto);
-      gap: 8px 28px;
-    }
-
-    .footer-repos a {
-      font-size: 0.83rem;
-      color: var(--muted);
-      transition: color 0.2s;
-    }
-
-    .footer-repos a:hover { color: var(--accent2); }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 860px) {
-      .arch-grid,
-      .principles-grid,
-      .reflex-grid,
-      .status-grid { grid-template-columns: 1fr; }
-
-      .arch-card.full { grid-column: auto; }
-
-      .map-grid { grid-template-columns: 1fr; }
-
-      .nav-links { display: none; }
-
-      .hero { padding: 120px 0 80px; }
-
-      .hero-stats { flex-wrap: wrap; gap: 28px; }
-
-      .footer-inner { flex-direction: column; }
-
-      .footer-repos { grid-template-columns: repeat(2, auto); }
-
-      .dialogue-box { padding: 32px; }
-
-      .dialogue-title { font-size: 1.6rem; }
-    }
-
-    /* ── SCROLL REVEAL ── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.55s ease, transform 0.55s ease;
-    }
-
-    .reveal.in { opacity: 1; transform: none; }
-
-    /* ── ACCORDION FOR CARD DETAILS ── */
-    .detail-toggle {
-      background: none;
-      border: none;
-      color: var(--muted);
-      font-size: 0.78rem;
-      font-family: 'Inter', sans-serif;
-      cursor: pointer;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 20px;
-      transition: color 0.2s;
-    }
-
-    .detail-toggle:hover { color: var(--accent2); }
-
-    .detail-toggle-icon {
-      width: 16px; height: 16px;
-      border: 1px solid currentColor;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      transition: transform 0.25s;
-    }
-
-    .detail-toggle.open .detail-toggle-icon { transform: rotate(45deg); }
-
-    .collapsible {
-      overflow: hidden;
-      max-height: 0;
-      transition: max-height 0.4s ease;
-    }
-
-    .collapsible.open { max-height: 1200px; }
-
-    /* ── NAMESPACE SUBDETAIL ── */
-    .namespace-list {
-      list-style: none;
-      display: grid;
-      gap: 8px;
-      margin-top: 14px;
-    }
-
-    .namespace-list li {
-      font-size: 0.82rem;
-      color: var(--muted);
-      padding: 10px 14px;
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      line-height: 1.5;
-    }
-
-    .namespace-list li strong { color: var(--text); font-weight: 500; }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+<title>Trio Viewer</title>
+<meta name="theme-color" content="#0d1117" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="icon" href="icon-192.png" />
+<link rel="apple-touch-icon" href="icon-192.png" />
+<style>
+  :root{
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  *{box-sizing: inherit;}
+  html, body{
+    margin:0;
+    height:100%;
+    width:100%;
+    overflow:hidden;
+    background:#0d1117;
+  }
+  #stage{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+  }
+  #track{
+    display:flex;
+    height:100%;
+    /* 5 slides = clone(last) + 3 pages + clone(first) */
+    width:500%;
+  }
+  .slide{
+    width:20%;
+    height:100%;
+  }
+  .slide iframe{
+    width:100%;
+    height:100%;
+    border:0;
+    display:block;
+    background:#0d1117;
+  }
+  /* Zone de swipe invisible en bas de l'écran */
+  #swipeZone{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom: env(safe-area-inset-bottom, 0px);
+    height:70px;
+    z-index:1000;
+    background:transparent;
+    touch-action:none;
+  }
+  /* Petits points indicateurs discrets (optionnels, quasi invisibles) */
+  #dots{
+    position:fixed;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 8px);
+    left:0;
+    right:0;
+    display:flex;
+    justify-content:center;
+    gap:6px;
+    z-index:999;
+    pointer-events:none;
+    opacity:0.35;
+  }
+  #dots span{
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:#8b949e;
+  }
+  #dots span.active{
+    background:#58a6ff;
+  }
+</style>
 </head>
-
 <body>
 
-  <!-- ── NAV ── -->
-  <nav>
-    <div class="wrap nav-inner">
-      <div class="brand">
-        <div class="brand-dot"></div>
-        JdC
-      </div>
-      <div class="nav-links">
-        <a href="#architectures">Architectures</a>
-        <a href="#map">Map</a>
-        <a href="#principles">Principles</a>
-        <a href="#status">Status</a>
-      </div>
-    </div>
-  </nav>
+<div id="stage">
+  <div id="track">
+    <div class="slide" data-real="2"><iframe title="clone-2" loading="lazy" src="about:blank"></iframe></div>
+    <div class="slide" data-real="0"><iframe title="page-0" loading="lazy" src="about:blank"></iframe></div>
+    <div class="slide" data-real="1"><iframe title="page-1" loading="lazy" src="about:blank"></iframe></div>
+    <div class="slide" data-real="2"><iframe title="page-2" loading="lazy" src="about:blank"></iframe></div>
+    <div class="slide" data-real="0"><iframe title="clone-0" loading="lazy" src="about:blank"></iframe></div>
+  </div>
+</div>
 
-  <main>
+<div id="dots">
+  <span data-i="0"></span>
+  <span data-i="1"></span>
+  <span data-i="2"></span>
+</div>
 
-    <!-- ── HERO ── -->
-    <div class="wrap">
-      <div class="hero">
-        <div class="hero-tag">Ongoing R&D</div>
+<!-- Zone de swipe invisible -->
+<div id="swipeZone"></div>
 
-        <h1>
-          Infrastructure for<br>
-          <em>AI-native</em><br>
-          coordination
-        </h1>
+<script>
+(function(){
+  const PAGES = [
+    "https://yourmine-dapp.web.app",
+    "https://theodoreyong9.github.io/Aiwa_project",
+    "https://theodoreyong9.github.io/Jobber"
+  ];
 
-        <p class="hero-body">
-          Six separate architectures exploring how humans and autonomous agents
-          might create, represent, discover, execute and exchange value —
-          without a single application or central authority.
-        </p>
+  const track = document.getElementById("track");
+  const slides = Array.from(track.children); // 5 slides
+  const dots = Array.from(document.querySelectorAll("#dots span"));
+  const swipeZone = document.getElementById("swipeZone");
 
-        <div class="hero-stats">
-          <div>
-            <div class="stat-num">6</div>
-            <div class="stat-label">Coordination primitives</div>
-          </div>
-          <div>
-            <div class="stat-num">0</div>
-            <div class="stat-label">Central databases</div>
-          </div>
-          <div>
-            <div class="stat-num">∞</div>
-            <div class="stat-label">Open problems</div>
-          </div>
-        </div>
-      </div>
-    </div>
+  // Charge chaque iframe une seule fois (lazy) avec son URL réelle
+  slides.forEach(slide => {
+    const real = parseInt(slide.dataset.real, 10);
+    const iframe = slide.querySelector("iframe");
+    iframe.dataset.src = PAGES[real];
+  });
 
-    <!-- ── ARCHITECTURES ── -->
-    <section id="architectures">
-      <div class="wrap">
-        <div class="section-meta reveal">
-          <span class="section-num">01 / Six architectures</span>
-          <div class="section-title-line"></div>
-        </div>
-
-        <div class="reveal">
-          <h2>Six coordination<br>primitives.</h2>
-          <p class="section-sub">
-            Each project isolates a different mechanism. They are not modules
-            of a single application — and they are not intended to become one.
-          </p>
-        </div>
-
-        <div class="arch-grid">
-
-          <!-- JOBBER -->
-          <article class="arch-card reveal">
-            <div class="arch-number">01</div>
-            <div class="arch-label">Personal agency</div>
-            <div class="arch-name">Jobber</div>
-            <div class="arch-primitive">Personal interoperable agency</div>
-            <p class="arch-desc">
-              A local-first P2P coordination environment for human opportunities.
-              The individual keeps agency locally while discovery and matching
-              happen between directly connected peers.
-            </p>
-
-            <div class="arch-detail">
-              <div class="detail-heading">Data flow</div>
-              <div class="flow-chain">
-                <span class="flow-step">Local identity</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">IndexedDB</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">Local matching</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">P2P discovery</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">Human action</span>
-              </div>
-
-              <button class="detail-toggle" onclick="toggleDetail(this)">
-                <span class="detail-toggle-icon">+</span>
-                Details &amp; namespaces
-              </button>
-
-              <div class="collapsible">
-                <div style="height:18px"></div>
-                <ul class="detail-list">
-                  <li>No backend or central database</li>
-                  <li>Browser ECDSA identity</li>
-                  <li>WebRTC P2P transport through Trystero</li>
-                  <li>Local matching algorithm</li>
-                  <li>Optional local WebLLM intelligence</li>
-                  <li>Full identity / profile / blocklist / research backup</li>
-                  <li>Optional Agent mode as cross-namespace matcher</li>
-                  <li>Optional Near mode via opt-in geolocation</li>
-                </ul>
-                <div style="margin-top:18px">
-                  <div class="detail-heading">Namespaces</div>
-                  <ul class="namespace-list">
-                    <li><strong>Employment</strong> — Candidate / Recruiter. Cover letters private until shared.</li>
-                    <li><strong>Business</strong> — Offer / Client, rate vs budget-range matching.</li>
-                    <li><strong>Independent</strong> — Service / Utilisateur.</li>
-                    <li><strong>Annonce</strong> — Seller / Buyer, client-side image resizing.</li>
-                    <li><strong>Dating</strong> — Reciprocal profiles; score constrained by weaker direction.</li>
-                    <li><strong>Intelligence</strong> — Ordered Build / Critic chains.</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div class="arch-links">
-              <a class="arch-link primary" href="https://theodoreyong9.github.io/Jobber/" target="_blank">Live ↗</a>
-              <a class="arch-link" href="https://github.com/theodoreyong9/Jobber" target="_blank">GitHub</a>
-            </div>
-          </article>
-
-          <!-- SGD -->
-          <article class="arch-card reveal">
-            <div class="arch-number">02</div>
-            <div class="arch-label">Collective representation</div>
-            <div class="arch-name">SGD</div>
-            <div class="arch-primitive">Collective semantic representation</div>
-            <p class="arch-desc">
-              Semantic Graph Democracy explores collective representation through
-              an AI-mediated graph rather than a binary vote. A submission is
-              simultaneously a search, a navigation and a participation operation.
-            </p>
-
-            <div class="arch-detail">
-              <div class="detail-heading">Data flow</div>
-              <div class="flow-chain">
-                <span class="flow-step">User text</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">Local semantic parse</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">Issue</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">GitHub Action</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">Canonical graph</span>
-              </div>
-
-              <button class="detail-toggle" onclick="toggleDetail(this)">
-                <span class="detail-toggle-icon">+</span>
-                Architecture &amp; limits
-              </button>
-
-              <div class="collapsible">
-                <div style="height:18px"></div>
-                <ul class="detail-list">
-                  <li>Static browser architecture</li>
-                  <li>WebLLM local semantic parsing preview</li>
-                  <li>Embedding-assisted search</li>
-                  <li>Canonical key determined server-side</li>
-                  <li>Repeated occurrences yield diminishing return ~1/n</li>
-                  <li>Invalid submissions automatically closed</li>
-                </ul>
-                <div style="margin-top:18px">
-                  <div class="detail-heading">Known limits</div>
-                  <ul class="detail-list">
-                    <li>Diversity structure not yet implemented</li>
-                    <li>No Sybil resistance through reformulation</li>
-                    <li>Graph rendering currently O(n²)</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div class="arch-links">
-              <a class="arch-link primary" href="https://theodoreyong9.github.io/SGD/" target="_blank">Live ↗</a>
-              <a class="arch-link" href="https://github.com/theodoreyong9/SGD" target="_blank">GitHub</a>
-            </div>
-          </article>
-
-          <!-- YOURMINE -->
-          <article class="arch-card reveal">
-            <div class="arch-number">03</div>
-            <div class="arch-label">Permissionless execution</div>
-            <div class="arch-name">YourMine</div>
-            <div class="arch-primitive">Permissionless execution</div>
-            <p class="arch-desc">
-              A permissionless WebOS where applications and interface themes are
-              published as ordinary files and evolve through a distributed registry
-              ordered by participatory scoring.
-            </p>
-
-            <div class="arch-detail">
-              <div class="detail-heading">Runtime</div>
-              <div class="flow-chain">
-                <span class="flow-step">index.html</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">theme</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">desk.js</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">app.js</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">sphere</span>
-              </div>
-
-              <button class="detail-toggle" onclick="toggleDetail(this)">
-                <span class="detail-toggle-icon">+</span>
-                Registry &amp; scoped agency
-              </button>
-
-              <div class="collapsible">
-                <div style="height:18px"></div>
-                <div class="detail-heading">Registry progression</div>
-                <div style="font-family:monospace;font-size:0.78rem;color:var(--accent2);background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin-bottom:16px;line-height:1.8">
-                  (score_now + 1) / (laps_now + 1)<br>
-                  &gt; (score_last + 1) / (laps_last + 1)
-                </div>
-                <ul class="detail-list">
-                  <li>First publication always allowed</li>
-                  <li>New sphere must improve the ratio</li>
-                  <li>Updates require ownership proof</li>
-                  <li>No editorial override</li>
-                </ul>
-                <div style="margin-top:16px">
-                  <div class="detail-heading">Scoped agency per sphere</div>
-                  <ul class="detail-list">
-                    <li>Scoped storage, UI, profile access, P2P, navigation</li>
-                    <li>No unrestricted access to global runtime</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div class="arch-links">
-              <a class="arch-link primary" href="https://yourmine-dapp.web.app" target="_blank">Live ↗</a>
-              <a class="arch-link" href="https://github.com/theodoreyong9/YourMinedApp" target="_blank">GitHub</a>
-            </div>
-          </article>
-
-          <!-- AIWA -->
-          <article class="arch-card reveal">
-            <div class="arch-number">04</div>
-            <div class="arch-label">Partitioned global coordination</div>
-            <div class="arch-name">AIWA Chain</div>
-            <div class="arch-primitive">Locally progressing value</div>
-            <p class="arch-desc">
-              A protocol experiment for value progression and transaction
-              validation across independently progressing domains — including
-              the latency constraints of interplanetary distance.
-            </p>
-
-            <div class="arch-detail">
-              <div class="detail-heading">Data flow</div>
-              <div class="flow-chain">
-                <span class="flow-step">Solana identity</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">Ignition</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">Local progression</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">Accrual</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">Transfer</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">Mirror</span>
-              </div>
-
-              <button class="detail-toggle" onclick="toggleDetail(this)">
-                <span class="detail-toggle-icon">+</span>
-                Implementation &amp; limits
-              </button>
-
-              <div class="collapsible">
-                <div style="height:18px"></div>
-                <ul class="detail-list">
-                  <li>Sequential-delay progression via verifiable delay function</li>
-                  <li>Value accrual based on local progression, not shared clock</li>
-                  <li>Conservation of transferred value</li>
-                  <li>JS reference + Rust implementation matching byte-for-byte</li>
-                  <li>Optional P2P signaling through Trystero / Nostr</li>
-                </ul>
-                <div style="margin-top:16px">
-                  <div class="detail-heading">Honest limits</div>
-                  <ul class="detail-list">
-                    <li>Initial activation remains dependent on Earth-hosted RPC</li>
-                    <li>Transport between independent economies unresolved</li>
-                    <li>Real exchange rate between separate economies not solved</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div class="arch-links">
-              <a class="arch-link primary" href="https://theodoreyong9.github.io/AIWA_chain/" target="_blank">Live ↗</a>
-              <a class="arch-link" href="https://github.com/theodoreyong9/AIWA_chain" target="_blank">GitHub</a>
-            </div>
-          </article>
-
-          <!-- SMARTANK -->
-          <article class="arch-card reveal">
-            <div class="arch-number">05</div>
-            <div class="arch-label">Capability discovery</div>
-            <div class="arch-name">Smartank</div>
-            <div class="arch-primitive">AI-native capability discovery</div>
-            <p class="arch-desc">
-              An AI Navigator for Hugging Face: describe what you want to build,
-              let local AI structure the intent, search the real catalog, rank
-              candidates and explain the result — without pretending to know the
-              catalog by heart.
-            </p>
-
-            <div class="arch-detail">
-              <div class="detail-heading">Reasoning pipeline</div>
-              <div class="flow-chain">
-                <span class="flow-step">User intent</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">CPU taxonomy</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">WebLLM</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">HF API</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">CPU ranking</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">Synthesis</span>
-              </div>
-
-              <button class="detail-toggle" onclick="toggleDetail(this)">
-                <span class="detail-toggle-icon">+</span>
-                Design choices &amp; privacy
-              </button>
-
-              <div class="collapsible">
-                <div style="height:18px"></div>
-                <ul class="detail-list">
-                  <li>100% vanilla HTML / CSS / JS — no framework or build system</li>
-                  <li>CPU-first design; GPU only where it adds value</li>
-                  <li>LLM structures intent; does not pretend to know the catalog</li>
-                  <li>Fallback to deterministic ranking if synthesis is inconsistent</li>
-                  <li>Composite objectives become capability pipelines</li>
-                </ul>
-                <div style="margin-top:16px">
-                  <div class="detail-heading">Privacy</div>
-                  <ul class="detail-list">
-                    <li>Reasoning stays local — only derived keywords reach HF API</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div class="arch-links">
-              <a class="arch-link primary" href="https://theodoreyong9.github.io/Smartank/" target="_blank">Live ↗</a>
-              <a class="arch-link" href="https://github.com/theodoreyong9/Smartank" target="_blank">GitHub</a>
-            </div>
-          </article>
-
-          <!-- ARVT -->
-          <article class="arch-card full reveal">
-            <div class="arch-number">06</div>
-            <div class="arch-label">Reflexive value architecture</div>
-            <div class="arch-name">ARVT</div>
-            <div class="arch-primitive">Reflexive value formation</div>
-            <p class="arch-desc">
-              ARVT explores value as the residue of a relation whose cost is real
-              and whose sustainability is maintained. A living philosophical corpus
-              that evolves through sequential visitor contributions arbitrated by
-              an LLM — where the mechanism for directing contributions is derived
-              from the theory being built.
-            </p>
-
-            <div style="margin: 20px 0; padding: 18px 24px; border-left: 2px solid var(--accent); background: var(--bg2); border-radius: 0 10px 10px 0; font-size: 0.92rem; color: var(--muted); font-style: italic;">
-              « La valeur est le résidu d'une relation dont le coût est réel et la soutenabilité maintenue. »
-            </div>
-
-            <div class="arch-detail">
-              <div class="detail-heading">Contribution cycle</div>
-              <div class="flow-chain">
-                <span class="flow-step">Visitor arrives</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">Selects node</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">Asks question</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">Proposal queue</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">Two proposals</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">Synthesis</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">Corpus extension</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">Node densification</span>
-              </div>
-
-              <button class="detail-toggle" onclick="toggleDetail(this)">
-                <span class="detail-toggle-icon">+</span>
-                Technical architecture &amp; reflexive closure
-              </button>
-
-              <div class="collapsible">
-                <div style="height:18px"></div>
-                <ul class="detail-list">
-                  <li>GitHub Pages static interface</li>
-                  <li>Gun.js provides the living P2P corpus and graph</li>
-                  <li>No application server, no central database</li>
-                  <li>GitHub Actions snapshot corpus every six hours</li>
-                  <li>Persistent artifacts: corpus.md, graph.json, snapshot history</li>
-                </ul>
-                <div style="margin-top:18px">
-                  <div class="detail-heading">The reflexive closure</div>
-                  <p style="font-size:0.87rem;color:var(--muted);line-height:1.7;margin-top:10px">
-                    Node density reflects the number and history of syntheses.
-                    The model directs subsequent contributions toward less-dense nodes,
-                    creating a gradient of exploration that follows the theory itself.
-                    The architecture does not merely describe value — its operation becomes
-                    an instance of the relation it is attempting to understand.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class="arch-links">
-              <a class="arch-link primary" href="https://theodoreyong9.github.io/ARVT/" target="_blank">Live ↗</a>
-              <a class="arch-link" href="https://github.com/theodoreyong9/ARVT" target="_blank">GitHub</a>
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ── MAP ── -->
-    <section id="map">
-      <div class="wrap">
-        <div class="section-meta reveal">
-          <span class="section-num">02 / Map</span>
-          <div class="section-title-line"></div>
-        </div>
-        <div class="reveal">
-          <h2>Different problems,<br>related direction.</h2>
-          <p class="section-sub">
-            The architectures are intentionally orthogonal. Together they form
-            experiments around agency, representation, execution, value,
-            discovery and reflexive evolution.
-          </p>
-        </div>
-
-        <div class="map-grid reveal">
-          <div class="map-item">
-            <div class="map-item-name">Jobber</div>
-            <p class="map-item-q">How can an individual expose needs and opportunities without surrendering agency to a central platform?</p>
-          </div>
-          <div class="map-item">
-            <div class="map-item-name">SGD</div>
-            <p class="map-item-q">How can collective intent be represented semantically rather than reduced to binary voting?</p>
-          </div>
-          <div class="map-item">
-            <div class="map-item-name">YourMine</div>
-            <p class="map-item-q">How can execution and application distribution remain permissionless?</p>
-          </div>
-          <div class="map-item">
-            <div class="map-item-name">AIWA</div>
-            <p class="map-item-q">How can value progress when domains cannot maintain continuous global consensus?</p>
-          </div>
-          <div class="map-item">
-            <div class="map-item-name">Smartank</div>
-            <p class="map-item-q">How can AI discover capabilities from a real external catalog without pretending to know it by heart?</p>
-          </div>
-          <div class="map-item">
-            <div class="map-item-name">ARVT</div>
-            <p class="map-item-q">How can an architecture evolve through the same relation it is attempting to theorize?</p>
-          </div>
-        </div>
-
-        <div class="sys-flow reveal">
-          <div class="sys-chain">
-            <span class="sys-step">Personal agency</span>
-            <span class="sys-arrow">→</span>
-            <span class="sys-step">Collective representation</span>
-            <span class="sys-arrow">→</span>
-            <span class="sys-step">Permissionless execution</span>
-            <span class="sys-arrow">→</span>
-            <span class="sys-step">Locally progressing value</span>
-            <span class="sys-arrow">→</span>
-            <span class="sys-step">Capability discovery</span>
-            <span class="sys-arrow">→</span>
-            <span class="sys-step">Reflexive evolution</span>
-          </div>
-          <p class="sys-note">
-            The common question is not "how do I build another application?"
-            It is closer to: what primitives are required for people, applications
-            and autonomous agents to coordinate when there is no single system
-            that can see, decide and control everything?
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── PRINCIPLES ── -->
-    <section id="principles">
-      <div class="wrap">
-        <div class="section-meta reveal">
-          <span class="section-num">03 / Principles</span>
-          <div class="section-title-line"></div>
-        </div>
-        <div class="reveal">
-          <h2>Constraints are<br>part of the design.</h2>
-          <p class="section-sub">
-            The projects deliberately work with constraints instead of hiding them
-            behind infrastructure.
-          </p>
-        </div>
-
-        <div class="principles-grid">
-          <div class="principle-card reveal">
-            <div class="principle-icon">⬡</div>
-            <div class="principle-name">Local agency</div>
-            <p class="principle-desc">Keep identity, reasoning, data or progression as close to the participant as possible.</p>
-          </div>
-          <div class="principle-card reveal">
-            <div class="principle-icon">⊘</div>
-            <div class="principle-name">No permanent central authority</div>
-            <p class="principle-desc">Central services may appear where unavoidable, but they should not become the conceptual source of truth for the whole system.</p>
-          </div>
-          <div class="principle-card reveal">
-            <div class="principle-icon">⊞</div>
-            <div class="principle-name">Explicit trust boundaries</div>
-            <p class="principle-desc">Identity, permissions, provenance, publication and synchronization are treated as separate concerns.</p>
-          </div>
-          <div class="principle-card reveal">
-            <div class="principle-icon">⧖</div>
-            <div class="principle-name">Real constraints</div>
-            <p class="principle-desc">Offline operation, latency, disconnected domains, limited compute and semantic ambiguity are architectural inputs, not problems to paper over.</p>
-          </div>
-          <div class="principle-card reveal">
-            <div class="principle-icon">◈</div>
-            <div class="principle-name">AI as participant</div>
-            <p class="principle-desc">AI is explored not only as a coding assistant but as a mechanism for semantic interpretation, capability discovery, critique, synthesis and coordination.</p>
-          </div>
-          <div class="principle-card reveal">
-            <div class="principle-icon">⟳</div>
-            <div class="principle-name">Graceful failure</div>
-            <p class="principle-desc">When AI or connectivity fails, deterministic or local mechanisms should remain useful whenever possible.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── DIALOGUE ── -->
-    <section>
-      <div class="wrap">
-        <div class="section-meta reveal">
-          <span class="section-num">04 / Development method</span>
-          <div class="section-title-line"></div>
-        </div>
-        <div class="reveal">
-          <h2>Built in dialogue.</h2>
-          <p class="section-sub">The development process is itself part of the experiment.</p>
-        </div>
-
-        <div class="dialogue-box reveal">
-          <div class="dialogue-tag">Three-way dialogue</div>
-          <div class="dialogue-title">Me + ChatGPT + Claude</div>
-          <p class="dialogue-text">
-            This project is developed through an ongoing three-way dialogue
-            between myself, ChatGPT and Claude.
-          </p>
-          <p class="dialogue-text">
-            The models are not treated simply as coding assistants. They are
-            used as counterparts for exploring ideas, challenging assumptions,
-            testing architectural coherence, writing and reviewing implementations,
-            and pushing concepts toward something executable.
-          </p>
-          <p class="dialogue-text">
-            The resulting architectures are therefore also experiments in
-            AI-native research and development: the development process itself
-            becomes part of the experiment.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── REFLEXIVITY ── -->
-    <section>
-      <div class="wrap">
-        <div class="section-meta reveal">
-          <span class="section-num">05 / Reflexivity</span>
-          <div class="section-title-line"></div>
-        </div>
-        <div class="reveal">
-          <h2>ARVT is a peer<br>architecture — and a closure.</h2>
-          <p class="section-sub">
-            Deliberately not presented as a superior layer above the other projects.
-          </p>
-        </div>
-
-        <div class="reflex-grid">
-          <div class="reflex-card reveal">
-            <div class="reflex-title">The architecture</div>
-            <p class="reflex-text">
-              Visitor → question → semantic node → proposal → queue →
-              composition of two proposals → synthesis → new residue →
-              densified graph → next contribution.
-            </p>
-            <p class="reflex-text">
-              A concrete technical flow, implemented through a static interface,
-              Gun.js and periodic snapshots.
-            </p>
-          </div>
-          <div class="reflex-card reveal">
-            <div class="reflex-title">The reflexivity</div>
-            <p class="reflex-text">
-              The system's mechanism for deciding where the next contribution should go
-              is derived from the conceptual structure it is producing.
-            </p>
-            <p class="reflex-text">
-              Architecture becomes part of the theory. The theory becomes a constraint
-              on the architecture.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── STATUS ── -->
-    <section id="status">
-      <div class="wrap">
-        <div class="section-meta reveal">
-          <span class="section-num">06 / Status</span>
-          <div class="section-title-line"></div>
-        </div>
-        <div class="reveal">
-          <h2>Working experiments,<br>not finished products.</h2>
-          <p class="section-sub">
-            Known limitations are part of the documentation rather than something to hide.
-          </p>
-        </div>
-
-        <div class="status-grid">
-          <div class="status-card reveal">
-            <div class="status-name">Current approach</div>
-            <p class="status-text">
-              Small, independently deployable experiments. Prefer plain browser primitives,
-              local computation and simple distributed mechanisms where they are sufficient.
-            </p>
-            <p class="status-text">
-              Avoid introducing infrastructure merely because it is familiar.
-              Add complexity only when the architecture requires it.
-            </p>
-          </div>
-          <div class="status-card reveal">
-            <div class="status-name">What remains open</div>
-            <p class="status-text">
-              Sybil resistance, distributed identity, cross-domain exchange rates,
-              richer semantic graphs, transport independence, uniqueness, scaling and
-              stronger guarantees around autonomous coordination remain open research problems.
-            </p>
-            <p class="status-text">
-              The goal is not to claim that these problems are solved, but to make
-              the assumptions and mechanisms concrete enough to test them.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ── FOOTER ── -->
-  <footer>
-    <div class="wrap">
-      <div class="footer-inner">
-        <div>
-          <div class="footer-brand">JdC</div>
-          <p class="footer-desc">
-            Experiments toward an AI-native social coordination infrastructure.
-          </p>
-        </div>
-        <div class="footer-repos">
-          <a href="https://github.com/theodoreyong9/Jobber" target="_blank">Jobber</a>
-          <a href="https://github.com/theodoreyong9/SGD" target="_blank">SGD</a>
-          <a href="https://github.com/theodoreyong9/YourMinedApp" target="_blank">YourMine</a>
-          <a href="https://github.com/theodoreyong9/AIWA_chain" target="_blank">AIWA Chain</a>
-          <a href="https://github.com/theodoreyong9/Smartank" target="_blank">Smartank</a>
-          <a href="https://github.com/theodoreyong9/ARVT" target="_blank">ARVT</a>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    // ── SCROLL REVEAL ──
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('in');
-          observer.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-
-    document.querySelectorAll('.reveal').forEach((el, i) => {
-      el.style.transitionDelay = (i % 4 * 0.07) + 's';
-      observer.observe(el);
-    });
-
-    // ── ACCORDION ──
-    function toggleDetail(btn) {
-      btn.classList.toggle('open');
-      const col = btn.nextElementSibling;
-      col.classList.toggle('open');
+  function loadIframeIfNeeded(index){
+    const slide = slides[index];
+    const iframe = slide.querySelector("iframe");
+    if (iframe.src === "about:blank" || !iframe.src) {
+      iframe.src = iframe.dataset.src;
     }
-  </script>
+  }
 
+  let index = 1;        // position dans le tableau des 5 slides (1 = vraie page 0)
+  let dragging = false;
+  let startX = 0;
+  let currentX = 0;
+  let baseOffset = 0;
+  let width = window.innerWidth;
+  let animating = false;
+
+  function slidePercentWidth(){ return 20; } // chaque slide = 20% du track (5 slides)
+
+  function setTransform(px, withTransition){
+    track.style.transition = withTransition ? "transform 0.32s ease" : "none";
+    track.style.transform = `translateX(${px}px)`;
+  }
+
+  function offsetForIndex(i){
+    return -i * width;
+  }
+
+  function updateDots(){
+    const real = parseInt(slides[index].dataset.real, 10);
+    dots.forEach(d => d.classList.toggle("active", parseInt(d.dataset.i,10) === real));
+  }
+
+  function goTo(i, animate){
+    index = i;
+    setTransform(offsetForIndex(index), animate);
+    loadIframeIfNeeded(index);
+    updateDots();
+  }
+
+  function next(){
+    if (animating) return;
+    animating = true;
+    goTo(index + 1, true);
+  }
+
+  function prev(){
+    if (animating) return;
+    animating = true;
+    goTo(index - 1, true);
+  }
+
+  track.addEventListener("transitionend", () => {
+    animating = false;
+    // Boucle infinie : si on est sur un clone, on saute sans animation vers l'original
+    if (index === 4) { // clone(0) après page 2
+      index = 1;
+      setTransform(offsetForIndex(index), false);
+      loadIframeIfNeeded(index);
+      updateDots();
+    } else if (index === 0) { // clone(2) avant page 0
+      index = 3;
+      setTransform(offsetForIndex(index), false);
+      loadIframeIfNeeded(index);
+      updateDots();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    width = window.innerWidth;
+    setTransform(offsetForIndex(index), false);
+  });
+
+  // Initialisation
+  width = window.innerWidth;
+  setTransform(offsetForIndex(index), false);
+  loadIframeIfNeeded(index);
+  updateDots();
+  // Précharge aussi les voisins pour un swipe plus fluide
+  loadIframeIfNeeded(index - 1);
+  loadIframeIfNeeded(index + 1);
+
+  // --- Gestion du swipe dans la zone invisible ---
+  const THRESHOLD = 40; // px minimum pour valider un swipe
+
+  function onStart(x){
+    dragging = true;
+    animating = false;
+    startX = x;
+    baseOffset = offsetForIndex(index);
+    track.style.transition = "none";
+  }
+
+  function onMove(x){
+    if (!dragging) return;
+    currentX = x;
+    const delta = currentX - startX;
+    setTransform(baseOffset + delta, false);
+  }
+
+  function onEnd(x){
+    if (!dragging) return;
+    dragging = false;
+    const delta = x - startX;
+    if (Math.abs(delta) > THRESHOLD) {
+      animating = true;
+      if (delta < 0) {
+        goTo(index + 1, true);
+      } else {
+        goTo(index - 1, true);
+      }
+    } else {
+      // Retour à la position actuelle
+      setTransform(offsetForIndex(index), true);
+    }
+  }
+
+  swipeZone.addEventListener("touchstart", e => onStart(e.touches[0].clientX), {passive:true});
+  swipeZone.addEventListener("touchmove", e => onMove(e.touches[0].clientX), {passive:true});
+  swipeZone.addEventListener("touchend", e => onEnd(e.changedTouches[0].clientX), {passive:true});
+
+  swipeZone.addEventListener("pointerdown", e => { onStart(e.clientX); swipeZone.setPointerCapture(e.pointerId); });
+  swipeZone.addEventListener("pointermove", e => onMove(e.clientX));
+  swipeZone.addEventListener("pointerup", e => onEnd(e.clientX));
+  swipeZone.addEventListener("pointercancel", e => onEnd(startX));
+
+  // Service worker pour le côté PWA (mise en cache de la coquille uniquement)
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("sw.js").catch(()=>{});
+    });
+  }
+})();
+</script>
 </body>
 </html>
