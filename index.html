@@ -13,6 +13,8 @@
     box-sizing: border-box;
     padding-top: env(safe-area-inset-top, 0px);
     padding-bottom: env(safe-area-inset-bottom, 0px);
+    /* Hauteur de la bande dédiée au swipe (ne recouvre JAMAIS l'iframe) */
+    --swipe-h: 26px;
   }
   *{box-sizing: inherit;}
   html, body{
@@ -21,10 +23,6 @@
     width:100%;
     overflow:hidden;
     background:#0d1117;
-  }
-  :root{
-    /* Hauteur de la bande dédiée au swipe (ne recouvre JAMAIS l'iframe) */
-    --swipe-h: 26px;
   }
   #stage{
     position:fixed;
@@ -39,11 +37,10 @@
   #track{
     display:flex;
     height:100%;
-    /* 5 slides = clone(last) + 3 pages + clone(first) */
-    width:500%;
+    width:300%; /* 3 slides = gauche / centre (actif) / droite */
   }
   .slide{
-    width:20%;
+    width:33.3333%;
     height:100%;
   }
   .slide iframe{
@@ -53,6 +50,82 @@
     display:block;
     background:#0d1117;
   }
+  /* Indicateur animé, dans la bande de swipe elle-même : montre le
+     swipe bidirectionnel en boucle avec un mouvement stylé continu. */
+  #swipeHint{
+    position:fixed;
+    bottom: env(safe-area-inset-bottom, 0px);
+    left:0;
+    right:0;
+    height: var(--swipe-h);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    z-index:999;
+    pointer-events:none;
+    opacity:1;
+    transition: opacity .5s ease;
+  }
+  #swipeHint.dim{ opacity:0.28; }
+  #swipeHint.active .runner{
+    box-shadow: 0 0 8px 2px rgba(88,166,255,0.7);
+  }
+
+  .chevron{
+    font-size:11px;
+    line-height:1;
+    color:#8b949e;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  .chevron-left{ animation: chevronLeftPulse 2.4s ease-in-out infinite; }
+  .chevron-right{ animation: chevronRightPulse 2.4s ease-in-out infinite; animation-delay: 1.2s; }
+  @keyframes chevronLeftPulse{
+    0%, 100% { opacity:.25; transform: translateX(0); }
+    50%      { opacity:.9;  transform: translateX(-3px); }
+  }
+  @keyframes chevronRightPulse{
+    0%, 100% { opacity:.25; transform: translateX(0); }
+    50%      { opacity:.9;  transform: translateX(3px); }
+  }
+
+  .dots-track{
+    position:relative;
+    width:40px;
+    height:5px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .dots-track .dot{
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:#8b949e;
+    opacity:.5;
+  }
+  .dots-track .dot.active{
+    opacity:1;
+    background:#c9d1d9;
+  }
+  .runner{
+    position:absolute;
+    top:50%;
+    left:0%;
+    width:8px;
+    height:8px;
+    margin-left:-4px;
+    border-radius:50%;
+    background: linear-gradient(135deg,#58a6ff,#3fb950 50%,#f778ba);
+    transform: translateY(-50%);
+    transition: left .32s cubic-bezier(.4,0,.2,1), box-shadow .3s ease;
+    animation: runnerBreathe 2.4s ease-in-out infinite;
+  }
+  @keyframes runnerBreathe{
+    0%, 100% { filter: brightness(1);   transform: translateY(-50%) scale(1); }
+    50%      { filter: brightness(1.35);transform: translateY(-50%) scale(1.15); }
+  }
+
   /* Zone de swipe : bande dédiée sous les iframes, ne recouvre rien de
      cliquable. Elle ne touche donc jamais au contenu des 3 sites. */
   #swipeZone{
@@ -65,51 +138,30 @@
     background:#0d1117; /* même couleur que le fond = quasi invisible */
     touch-action:none;
   }
-  /* Petits points indicateurs discrets, dans la bande de swipe elle-même */
-  #dots{
-    position:fixed;
-    bottom: env(safe-area-inset-bottom, 0px);
-    left:0;
-    right:0;
-    height: var(--swipe-h);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:6px;
-    z-index:999;
-    pointer-events:none;
-    opacity:0.35;
-  }
-  #dots span{
-    width:6px;
-    height:6px;
-    border-radius:50%;
-    background:#8b949e;
-  }
-  #dots span.active{
-    background:#58a6ff;
-  }
 </style>
 </head>
 <body>
 
 <div id="stage">
   <div id="track">
-    <div class="slide" data-real="2"><iframe title="clone-2" loading="lazy" src="about:blank"></iframe></div>
-    <div class="slide" data-real="0"><iframe title="page-0" loading="lazy" src="about:blank"></iframe></div>
-    <div class="slide" data-real="1"><iframe title="page-1" loading="lazy" src="about:blank"></iframe></div>
-    <div class="slide" data-real="2"><iframe title="page-2" loading="lazy" src="about:blank"></iframe></div>
-    <div class="slide" data-real="0"><iframe title="clone-0" loading="lazy" src="about:blank"></iframe></div>
+    <div class="slide" data-real="2"><iframe title="page-2" loading="eager" src="about:blank"></iframe></div>
+    <div class="slide" data-real="0"><iframe title="page-0" loading="eager" src="about:blank"></iframe></div>
+    <div class="slide" data-real="1"><iframe title="page-1" loading="eager" src="about:blank"></iframe></div>
   </div>
 </div>
 
-<div id="dots">
-  <span data-i="0"></span>
-  <span data-i="1"></span>
-  <span data-i="2"></span>
+<div id="swipeHint" aria-hidden="true">
+  <span class="chevron chevron-left">‹</span>
+  <span class="dots-track">
+    <span class="dot" data-i="0"></span>
+    <span class="dot" data-i="1"></span>
+    <span class="dot" data-i="2"></span>
+    <span class="runner"></span>
+  </span>
+  <span class="chevron chevron-right">›</span>
 </div>
 
-<!-- Zone de swipe invisible -->
+<!-- Zone de swipe invisible (capte les gestes, l'indicateur ci-dessus est purement visuel) -->
 <div id="swipeZone"></div>
 
 <script>
@@ -121,34 +173,43 @@
   ];
 
   const track = document.getElementById("track");
-  const slides = Array.from(track.children); // 5 slides
-  const dots = Array.from(document.querySelectorAll("#dots span"));
+  const slides = Array.from(track.children); // 3 slides, un par page réelle, jamais dupliqués
+  const dots = Array.from(document.querySelectorAll(".dots-track .dot"));
+  const runner = document.querySelector(".runner");
+  const swipeHint = document.getElementById("swipeHint");
   const swipeZone = document.getElementById("swipeZone");
+  const RUNNER_POS = ["0%", "50%", "100%"]; // position le long de la piste pour page 0/1/2
 
-  // Charge chaque iframe une seule fois (lazy) avec son URL réelle
+  // Chaque slide charge sa page UNE SEULE FOIS, pour de bon (pas de clone,
+  // pas de rechargement lors de la boucle -> plus de flash / clignotement).
   slides.forEach(slide => {
     const real = parseInt(slide.dataset.real, 10);
-    const iframe = slide.querySelector("iframe");
-    iframe.dataset.src = PAGES[real];
+    slide.querySelector("iframe").src = PAGES[real];
   });
 
-  function loadIframeIfNeeded(index){
-    const slide = slides[index];
-    const iframe = slide.querySelector("iframe");
-    if (iframe.src === "about:blank" || !iframe.src) {
-      iframe.src = iframe.dataset.src;
-    }
+  // layout[0]=page à gauche, layout[1]=page active (centre), layout[2]=page à droite
+  let layout = [2, 0, 1];
+
+  function applyLayout(){
+    slides.forEach(slide => {
+      const real = parseInt(slide.dataset.real, 10);
+      slide.style.order = layout.indexOf(real);
+    });
+    updateDots();
   }
 
-  let index = 1;        // position dans le tableau des 5 slides (1 = vraie page 0)
+  function updateDots(){
+    const real = layout[1];
+    dots.forEach(d => d.classList.toggle("active", parseInt(d.dataset.i,10) === real));
+    runner.style.left = RUNNER_POS[real];
+  }
+
+  let index = 1;          // position visuelle courante: 0=gauche,1=centre,2=droite
   let dragging = false;
   let startX = 0;
-  let currentX = 0;
   let baseOffset = 0;
   let width = window.innerWidth;
-  let animating = false;
-
-  function slidePercentWidth(){ return 20; } // chaque slide = 20% du track (5 slides)
+  let activePointerId = null;
 
   function setTransform(px, withTransition){
     track.style.transition = withTransition ? "transform 0.32s ease" : "none";
@@ -159,43 +220,24 @@
     return -i * width;
   }
 
-  function updateDots(){
-    const real = parseInt(slides[index].dataset.real, 10);
-    dots.forEach(d => d.classList.toggle("active", parseInt(d.dataset.i,10) === real));
-  }
-
   function goTo(i, animate){
     index = i;
     setTransform(offsetForIndex(index), animate);
-    loadIframeIfNeeded(index);
-    updateDots();
-  }
-
-  function next(){
-    if (animating) return;
-    animating = true;
-    goTo(index + 1, true);
-  }
-
-  function prev(){
-    if (animating) return;
-    animating = true;
-    goTo(index - 1, true);
   }
 
   track.addEventListener("transitionend", () => {
-    animating = false;
-    // Boucle infinie : si on est sur un clone, on saute sans animation vers l'original
-    if (index === 4) { // clone(0) après page 2
+    if (index === 2) {
+      // Swipe vers la page suivante : rotation, la page de gauche devient
+      // automatiquement la nouvelle page de droite (aucune iframe rechargée).
+      layout = [layout[1], layout[2], layout[0]];
+      applyLayout();
       index = 1;
       setTransform(offsetForIndex(index), false);
-      loadIframeIfNeeded(index);
-      updateDots();
-    } else if (index === 0) { // clone(2) avant page 0
-      index = 3;
+    } else if (index === 0) {
+      layout = [layout[2], layout[0], layout[1]];
+      applyLayout();
+      index = 1;
       setTransform(offsetForIndex(index), false);
-      loadIframeIfNeeded(index);
-      updateDots();
     }
   });
 
@@ -206,56 +248,86 @@
 
   // Initialisation
   width = window.innerWidth;
+  applyLayout();
   setTransform(offsetForIndex(index), false);
-  loadIframeIfNeeded(index);
-  updateDots();
-  // Précharge aussi les voisins pour un swipe plus fluide
-  loadIframeIfNeeded(index - 1);
-  loadIframeIfNeeded(index + 1);
 
-  // --- Gestion du swipe dans la zone invisible ---
+  // --- Indicateur animé : actif au démarrage, s'atténue après un délai,
+  // se réveille brièvement à chaque interaction ---
+  let dimTimer = null;
+  let wakeTimer = null;
+
+  function scheduleDim(delay){
+    clearTimeout(dimTimer);
+    dimTimer = setTimeout(() => swipeHint.classList.add("dim"), delay);
+  }
+  function wakeHint(){
+    clearTimeout(wakeTimer);
+    swipeHint.classList.remove("dim");
+    swipeHint.classList.add("active");
+  }
+  function sleepHintSoon(){
+    clearTimeout(wakeTimer);
+    wakeTimer = setTimeout(() => {
+      swipeHint.classList.remove("active");
+      scheduleDim(1500);
+    }, 400);
+  }
+  scheduleDim(3500);
+
+  // --- Gestion du swipe : Pointer Events UNIQUEMENT (évite le conflit
+  // touch+pointer qui rendait le geste erratique par moments) ---
   const THRESHOLD = 40; // px minimum pour valider un swipe
 
-  function onStart(x){
+  function onStart(e){
+    if (!e.isPrimary) return;
+    if (activePointerId !== null) return;
+    activePointerId = e.pointerId;
     dragging = true;
-    animating = false;
-    startX = x;
+    startX = e.clientX;
     baseOffset = offsetForIndex(index);
     track.style.transition = "none";
+    wakeHint();
+    try { swipeZone.setPointerCapture(e.pointerId); } catch(_) {}
   }
 
-  function onMove(x){
-    if (!dragging) return;
-    currentX = x;
-    const delta = currentX - startX;
+  function onMove(e){
+    if (!dragging || e.pointerId !== activePointerId) return;
+    const delta = e.clientX - startX;
     setTransform(baseOffset + delta, false);
   }
 
-  function onEnd(x){
-    if (!dragging) return;
+  function endDrag(clientX){
     dragging = false;
-    const delta = x - startX;
+    activePointerId = null;
+    const delta = clientX - startX;
     if (Math.abs(delta) > THRESHOLD) {
-      animating = true;
-      if (delta < 0) {
-        goTo(index + 1, true);
-      } else {
-        goTo(index - 1, true);
-      }
+      goTo(delta < 0 ? 2 : 0, true);
     } else {
-      // Retour à la position actuelle
       setTransform(offsetForIndex(index), true);
     }
+    sleepHintSoon();
   }
 
-  swipeZone.addEventListener("touchstart", e => onStart(e.touches[0].clientX), {passive:true});
-  swipeZone.addEventListener("touchmove", e => onMove(e.touches[0].clientX), {passive:true});
-  swipeZone.addEventListener("touchend", e => onEnd(e.changedTouches[0].clientX), {passive:true});
+  function onEnd(e){
+    if (e.pointerId !== activePointerId) return;
+    endDrag(e.clientX);
+  }
 
-  swipeZone.addEventListener("pointerdown", e => { onStart(e.clientX); swipeZone.setPointerCapture(e.pointerId); });
-  swipeZone.addEventListener("pointermove", e => onMove(e.clientX));
-  swipeZone.addEventListener("pointerup", e => onEnd(e.clientX));
-  swipeZone.addEventListener("pointercancel", e => onEnd(startX));
+  function onCancel(e){
+    if (e.pointerId !== activePointerId) return;
+    dragging = false;
+    activePointerId = null;
+    setTransform(offsetForIndex(index), true);
+    sleepHintSoon();
+  }
+
+  swipeZone.addEventListener("pointerdown", onStart);
+  swipeZone.addEventListener("pointermove", onMove);
+  swipeZone.addEventListener("pointerup", onEnd);
+  swipeZone.addEventListener("pointercancel", onCancel);
+  swipeZone.addEventListener("lostpointercapture", (e) => {
+    if (e.pointerId === activePointerId && dragging) onCancel(e);
+  });
 
   // Service worker pour le côté PWA (mise en cache de la coquille uniquement)
   if ("serviceWorker" in navigator) {

@@ -46,7 +46,15 @@ Si une des 3 pages reste blanche dans l'iframe :
   iframes (`#swipeZone`). Comme cette bande ne recouvre jamais le contenu
   des sites, **tout reste cliquable normalement dans les 3 apps**, y compris
   tout en bas de leur interface.
-- Cette bande capte les gestes tactiles (touch) et souris (pointer).
+- Chaque page est chargée dans **une seule iframe, une seule fois**. La
+  boucle infinie est obtenue en réordonnant ces 3 iframes via CSS (`order`)
+  plutôt qu'en dupliquant des iframes "clones" — donc pas de rechargement,
+  pas d'état perdu, et pas de flash/clignotement au passage d'une page à
+  l'autre en boucle.
+- La détection du geste utilise uniquement les **Pointer Events** (et pas
+  un mélange touch + pointer), ce qui évite les comportements erratiques
+  que certains navigateurs mobiles provoquent quand les deux types
+  d'événements se déclenchent en même temps sur la même zone.
 - Techniquement, il est impossible de superposer une zone de swipe
   *par-dessus* une iframe cross-origin tout en laissant les clics la
   traverser (limitation de sécurité des navigateurs) — c'est pourquoi la
